@@ -1,0 +1,137 @@
+version: '3'
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant:2021.12
+    depends_on:
+      - "influxdb"
+    volumes:
+      - ./home-assistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    network_mode: host
+
+#######################################MQTT
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto
+    restart: always
+    volumes:
+      - /home/pashovski/docker-compose/mosquitto/config:/mosquitto/config
+      - /home/pashovski/docker-compose/mosquitto/data:/mosquitto/data
+      - /home/pashovski/docker-compose/mosquitto/log:/mosquitto/log
+    ports:
+      - 1883:1883
+      - 9001:9001
+##############zigbee2mqtt
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt:1.28.2
+    volumes:
+      - /home/pashovski/docker-compose/zigbee2mqtt/data:/app/data
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    restart: always
+    network_mode: host
+    privileged: true
+    environment:
+      - TZ=America/New_York
+######inlfuxdb####
+  influxdb:
+    container_name: influxdb
+    image: influxdb
+    restart: always
+    ports:
+      - 8086:8086
+    volumes:
+      - /home/pashovski/docker-compose/influxdb_data:/var/lib/influxdb
+####grafana####
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - "influxdb"
+    container_name: grafana
+    restart: always
+    ports:
+      - 3000:3000
+    user: "1000"
+    volumes:
+      - /home/pashovski/docker-compose/grafana_data:/var/lib/grafana
+####NPM####
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: npm
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "npm"
+      DB_MYSQL_NAME: "npm"
+    volumes:
+      - /home/pashovski/docker-compose/data:/data
+      - /home/pashovski/docker-compose/letsencrypt:/etc/letsencrypt
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
+    volumes:
+      - /home/pashovski/docker-compose/data/mysql:/var/lib/var/lib/mysql
+###ngninx#########
+  nginx:
+    image: nginx
+    volumes:
+      - ./config:/etc/nginx/conf.d
+    ports:
+      - 99:80
+    networks:
+      - local-network
+###apache###
+  apache:
+    container_name: public-website
+    image: httpd:latest
+    cpus: 1.5
+    mem_limit: 2048m
+    ports:
+      - "82:80"
+    volumes:
+    - ./shell-element/dist:/usr/local/apache2/htdocs
+####new thing###
+  web:
+    build: ./app
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+
+
+#####ubooquity####
+  ubooquity:
+    container_name: ubooquity
+    restart: always
+    image: ghcr.io/linuxserver/ubooquity
+    volumes:
+      - /home/pashovski/docker-compose/ubooquity:/config
+      - /home/pashovski/books:/books
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/NewYork
+    ports:
+      - 2202:2202
+      - 2203:2203
+
+networks:
+  local-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.0/24
