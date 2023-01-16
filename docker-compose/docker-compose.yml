@@ -4,14 +4,14 @@ services:
     container_name: homeassistant
     image: homeassistant/home-assistant:2021.12
     depends_on:
-      - "influxdb"
+      - 'influxdb'
     volumes:
       - ./home-assistant:/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     network_mode: host
 
-#######################################MQTT
+  #######################################MQTT
   mqtt:
     container_name: mqtt
     image: eclipse-mosquitto
@@ -23,7 +23,7 @@ services:
     ports:
       - 1883:1883
       - 9001:9001
-##############zigbee2mqtt
+  ##############zigbee2mqtt
   zigbee2mqtt:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt:1.28.2
@@ -37,7 +37,7 @@ services:
     privileged: true
     environment:
       - TZ=America/New_York
-######inlfuxdb####
+  ######inlfuxdb####
   influxdb:
     container_name: influxdb
     image: influxdb
@@ -46,19 +46,19 @@ services:
       - 8086:8086
     volumes:
       - /home/pashovski/docker-compose/influxdb_data:/var/lib/influxdb
-####grafana####
+  ####grafana####
   grafana:
     image: grafana/grafana
     depends_on:
-      - "influxdb"
+      - 'influxdb'
     container_name: grafana
     restart: always
     ports:
       - 3000:3000
-    user: "1000"
+    user: '1000'
     volumes:
       - /home/pashovski/docker-compose/grafana_data:/var/lib/grafana
-####NPM####
+  ####NPM####
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: npm
@@ -67,11 +67,11 @@ services:
       - '81:81'
       - '443:443'
     environment:
-      DB_MYSQL_HOST: "db"
+      DB_MYSQL_HOST: 'db'
       DB_MYSQL_PORT: 3306
-      DB_MYSQL_USER: "npm"
-      DB_MYSQL_PASSWORD: "npm"
-      DB_MYSQL_NAME: "npm"
+      DB_MYSQL_USER: 'npm'
+      DB_MYSQL_PASSWORD: 'npm'
+      DB_MYSQL_NAME: 'npm'
     volumes:
       - /home/pashovski/docker-compose/data:/data
       - /home/pashovski/docker-compose/letsencrypt:/etc/letsencrypt
@@ -84,26 +84,26 @@ services:
       MYSQL_PASSWORD: 'npm'
     volumes:
       - /home/pashovski/docker-compose/data/mysql:/var/lib/var/lib/mysql
-###ngninx#########
-  nginx:
-    image: nginx
-    volumes:
-      - ./config:/etc/nginx/conf.d
-    ports:
-      - 99:80
-    networks:
-      - local-network
+  ###ngninx#########
+  # nginx:
+  #   image: nginx
+  #   volumes:
+  #     - ./config:/etc/nginx/conf.d
+  #   ports:
+  #     - 99:80
+  #   networks:
+  #     - local-network
   ###apache###
-  apache:
-    container_name: public-website
-    image: httpd:latest
-    cpus: 1.5
-    mem_limit: 2048m
-    ports:
-      - '82:80'
-    volumes:
-      - ./shell-element/dist:/usr/local/apache2/htdocs
-  ####Fast API###
+  # apache:
+  #   container_name: public-website
+  #   image: httpd:latest
+  #   cpus: 1.5
+  #   mem_limit: 2048m
+  #   ports:
+  #     - "82:80"
+  #   volumes:
+  #   - ./shell-element/dist:/usr/local/apache2/htdocs
+  ####new thing###
   web:
     build: ./app
     ports:
