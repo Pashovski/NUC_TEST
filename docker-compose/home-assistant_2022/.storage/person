@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "minor_version": 1,
+    "key": "person",
+    "data": {
+        "items": [
+            {
+                "name": "test",
+                "user_id": "cc9b8364a74d46e5a0bb2d4dfe4b0535",
+                "device_trackers": [
+                    "device_tracker.sm_g965u1",
+                    "device_tracker.kitchen_tablet",
+                    "device_tracker.sm_g973u",
+                    "device_tracker.sm_s901u"
+                ],
+                "id": "test",
+                "picture": "/api/image/serve/3295f4d83408081f50eca2b401992267/512x512"
+            }
+        ]
+    }
+}

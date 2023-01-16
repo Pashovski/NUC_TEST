@@ -1,0 +1,696 @@
+{
+    "version": 1,
+    "minor_version": 1,
+    "key": "lovelace",
+    "data": {
+        "config": {
+            "views": [
+                {
+                    "title": "Home",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "grid",
+                            "columns": 1,
+                            "square": false,
+                            "cards": [
+                                {
+                                    "type": "grid",
+                                    "columns": 5,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.living_room_lamp",
+                                            "name": "Living Room Lamp",
+                                            "icon": "mdi:floor-lamp"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "icon": "mdi:alarm-light-outline",
+                                            "entity": "light.entryway_light",
+                                            "name": "Entryway"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.nursery_sconces",
+                                            "name": "Nursery Lights"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "automation.kitchen_lights_on"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "automation.bathroom_lights_test"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "grid",
+                                    "columns": 5,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.hallway_main_lights"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.dining_room_cove_lights"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.dining_room_main_lights"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.dining_room_chandelier"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.living_room",
+                                            "name": "Living Room"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "grid",
+                                    "columns": 2,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "gauge",
+                                            "entity": "sensor.nursery_temperature",
+                                            "max": 120,
+                                            "name": "Nursery",
+                                            "unit": "F",
+                                            "min": 25,
+                                            "severity": {
+                                                "green": 72,
+                                                "yellow": 73,
+                                                "red": 76
+                                            }
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "entity": "sensor.bedroom_temperature",
+                                            "min": 20,
+                                            "max": 119,
+                                            "name": "Bedroom",
+                                            "unit": "F",
+                                            "severity": {
+                                                "green": 72,
+                                                "yellow": 73,
+                                                "red": 76
+                                            }
+                                        },
+                                        {
+                                            "type": "custom:button-card",
+                                            "state": [
+                                                {
+                                                    "value": "on",
+                                                    "color": "orange",
+                                                    "styles": {
+                                                        "icon": [
+                                                            {
+                                                                "animation": "blink 2s linear infinite"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "switch.living_room_1",
+                                            "name": "Nursery Heater",
+                                            "icon": "mdi:car-seat-heater"
+                                        },
+                                        {
+                                            "type": "custom:button-card",
+                                            "state": [
+                                                {
+                                                    "value": "on",
+                                                    "color": "orange",
+                                                    "styles": {
+                                                        "icon": [
+                                                            {
+                                                                "animation": "blink 2s linear infinite"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ],
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "switch.bedrooms_ac",
+                                            "name": "Bedroom Heater",
+                                            "icon": "mdi:car-seat-heater"
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "name": "Nursery Humidity",
+                                            "min": 25,
+                                            "max": 50,
+                                            "severity": {
+                                                "green": 72,
+                                                "yellow": 73,
+                                                "red": 74
+                                            },
+                                            "entity": "sensor.nursery_humidity"
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "max": 120,
+                                            "name": "Living Room",
+                                            "unit": "F",
+                                            "min": 20,
+                                            "severity": {
+                                                "green": 72,
+                                                "yellow": 73,
+                                                "red": 76
+                                            },
+                                            "entity": "sensor.aqara_living_room_temperature"
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "min": 25,
+                                            "name": "Kitchen",
+                                            "unit": "F",
+                                            "max": 120,
+                                            "severity": {
+                                                "green": 72,
+                                                "yellow": 73,
+                                                "red": 76
+                                            },
+                                            "entity": "sensor.kitchen_temperature"
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "min": 25,
+                                            "max": 120,
+                                            "name": "Bathroom",
+                                            "unit": "F",
+                                            "severity": {
+                                                "green": 72,
+                                                "yellow": 73,
+                                                "red": 76
+                                            },
+                                            "entity": "sensor.bathroom_temperature"
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "entity": "sensor.entryway_aqara_temperature",
+                                            "min": 0,
+                                            "max": 100,
+                                            "name": "Entryway"
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "min": 0,
+                                            "max": 100,
+                                            "entity": "sensor.basement_front_temperature",
+                                            "name": "Basement"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "grid",
+                                    "columns": 2,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "custom:bar-card",
+                                            "entities": [
+                                                {
+                                                    "entity": "sensor.sm_g965u1_battery_level"
+                                                }
+                                            ],
+                                            "title": "S9 Battery",
+                                            "name": " "
+                                        },
+                                        {
+                                            "type": "custom:bar-card",
+                                            "entities": [
+                                                {
+                                                    "entity": "sensor.basement_front_linkquality"
+                                                }
+                                            ],
+                                            "title": "RSSI",
+                                            "name": " "
+                                        },
+                                        {
+                                            "type": "custom:bar-card",
+                                            "entities": [
+                                                {
+                                                    "entity": "sensor.kitchen_tablet_battery_level"
+                                                }
+                                            ],
+                                            "title": "Kitchen Tablet Battery",
+                                            "name": " "
+                                        },
+                                        {
+                                            "type": "gauge",
+                                            "entity": "sensor.aqara_dining_room_temperature",
+                                            "min": 0,
+                                            "max": 100,
+                                            "name": "Dining Room"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "grid",
+                                    "columns": 1,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "glance",
+                                            "entities": [
+                                                {
+                                                    "entity": "sensor.memory_free"
+                                                },
+                                                {
+                                                    "entity": "sensor.processor_use"
+                                                }
+                                            ],
+                                            "title": "System"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "grid",
+                            "columns": 1,
+                            "square": false,
+                            "cards": [
+                                {
+                                    "type": "grid",
+                                    "columns": 1,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "weather-forecast",
+                                            "entity": "weather.home"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "iframe",
+                                    "url": "https://embed.windy.com/embed2.html?lat=40.645&lon=-73.950&zoom=11&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=40.645&detailLon=-73.950&metricWind=default&metricTemp=default&radarRange=-1",
+                                    "aspect_ratio": "50%"
+                                },
+                                {
+                                    "type": "grid",
+                                    "columns": 4,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "switch.bedroom_2",
+                                            "name": "Caitlin's Lamp",
+                                            "icon": "mdi:lamp"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "switch.bedroom_1",
+                                            "name": "Pasha's Lamp",
+                                            "icon": "mdi:lamp"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.master_bedroom_ceiling_fan_light",
+                                            "name": "Master Bedroom"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "switch.bedroom_3",
+                                            "name": "Whie Noise Machine",
+                                            "icon": "mdi:alarm-snooze"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.bathroom_lights"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.main_bathroom_sconces"
+                                        },
+                                        {
+                                            "type": "light",
+                                            "entity": "light.living_room_lamp"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "switch.ac_power_test",
+                                            "icon": "mdi:air-conditioner"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "icon": "mdi:air-conditioner",
+                                            "entity": "script.power",
+                                            "name": "Bedroom AC"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "icon": "mdi:cctv",
+                                            "entity": "script.kitchen_nanit_on",
+                                            "name": "Kitchen Nanit"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "script.nanit_on",
+                                            "icon": "mdi:cctv",
+                                            "name": "Nanit"
+                                        },
+                                        {
+                                            "type": "light",
+                                            "entity": "light.living_room"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "script.find_my_phone",
+                                            "icon": "mdi:cellphone-nfc"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "grid",
+                                    "columns": 1,
+                                    "square": false,
+                                    "cards": [
+                                        {
+                                            "type": "custom:home-feed-card",
+                                            "title": "Home Feed",
+                                            "show_empty": false,
+                                            "scrollbars_enabled": false,
+                                            "max_item_count": 5,
+                                            "entities": [
+                                                {
+                                                    "entity": "binary_sensor.mailbox_contact"
+                                                },
+                                                {
+                                                    "entity": "binary_sensor.bedroom_door_contact"
+                                                },
+                                                {
+                                                    "entity": "binary_sensor.aqara_kitchen_occupancy"
+                                                },
+                                                {
+                                                    "entity": "binary_sensor.aqara_motion_bathroom_occupancy"
+                                                },
+                                                {
+                                                    "entity": "binary_sensor.dishwasher_contact"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "grid",
+                            "columns": 1,
+                            "square": false,
+                            "cards": [
+                                {
+                                    "type": "custom:mini-media-player",
+                                    "entity": "media_player.dining_room_echo"
+                                },
+                                {
+                                    "type": "custom:mini-media-player",
+                                    "entity": "media_player.kitchen_echo_dot"
+                                },
+                                {
+                                    "type": "custom:mini-media-player",
+                                    "entity": "media_player.living_room_echo_dot"
+                                },
+                                {
+                                    "type": "grid",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "input_boolean.motion_detected",
+                                            "name": "Mail Arrived"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "input_boolean.dishwasher_clean"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "input_boolean.washer_clean"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "input_boolean.washer_clean_pete"
+                                        },
+                                        {
+                                            "type": "media-control",
+                                            "entity": "media_player.spotify_caitlinmin"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "media-control",
+                            "entity": "media_player.living_room_tv"
+                        },
+                        {
+                            "type": "media-control",
+                            "entity": "media_player.denon_avr_x1500h"
+                        },
+                        {
+                            "type": "button",
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "entity": "script.power"
+                        },
+                        {
+                            "type": "button",
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "entity": "script.sienna"
+                        }
+                    ]
+                },
+                {
+                    "title": "Power Monitoring",
+                    "path": "power-monitoring",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.washer_state"
+                                },
+                                {
+                                    "entity": "sensor.washer_voltage"
+                                },
+                                {
+                                    "entity": "sensor.washer_amps"
+                                },
+                                {
+                                    "entity": "sensor.washer_watts"
+                                },
+                                {
+                                    "entity": "sensor.washer_energy_today"
+                                },
+                                {
+                                    "entity": "sensor.washer_energy_today"
+                                },
+                                {
+                                    "entity": "sensor.washer_signal"
+                                }
+                            ],
+                            "title": "Washer",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.ac_state"
+                                },
+                                {
+                                    "entity": "sensor.ac_voltage"
+                                },
+                                {
+                                    "entity": "sensor.ac_amps"
+                                },
+                                {
+                                    "entity": "sensor.ac_watts"
+                                },
+                                {
+                                    "entity": "sensor.ac_energy_today"
+                                },
+                                {
+                                    "entity": "sensor.ac_yesterday"
+                                },
+                                {
+                                    "entity": "sensor.ac_signal"
+                                }
+                            ],
+                            "title": "AC",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.dishwasher_state"
+                                },
+                                {
+                                    "entity": "sensor.dishwasher_voltage"
+                                },
+                                {
+                                    "entity": "sensor.dishwasher_amps"
+                                },
+                                {
+                                    "entity": "sensor.dishwasher_watts"
+                                },
+                                {
+                                    "entity": "sensor.dishwasher_energy_today"
+                                },
+                                {
+                                    "entity": "sensor.dishwasher_energy_today"
+                                },
+                                {
+                                    "entity": "sensor.dishwasher_signal"
+                                }
+                            ],
+                            "title": "Dish Washer",
+                            "type": "entities"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "sensor.bedroom_ac_state"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_ac_voltage"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_ac_amps"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_ac_watts"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_ac_energy_today"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_ac_signal"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_ac_yesterday"
+                                }
+                            ],
+                            "title": "Bedroom AC"
+                        },
+                        {
+                            "type": "button",
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "entity": "switch.living_room_3"
+                        },
+                        {
+                            "type": "button",
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "entity": "switch.fridge"
+                        },
+                        {
+                            "type": "button",
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "entity": "switch.bedrooms_ac"
+                        }
+                    ]
+                }
+            ],
+            "title": "Home"
+        }
+    }
+}

@@ -1,0 +1,327 @@
+- alias: Mailbox Notification
+  trigger:
+    platform: state
+    entity_id: binary_sensor.mailbox_contact
+    to: 'on'
+  condition:
+    condition: time
+    after: '7:00:00'
+    before: '20:00:00'
+  action:
+    service: notify.alexa_media_everywhere
+    data:
+      message: Today's Mail has arrived
+      data:
+        type: announce
+        method: tts
+- alias: Bedroom Space Heater On
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bedroom_temperature
+    below: 68
+  action:
+  - service: switch.turn_on
+    entity_id: switch.bedrooms_ac
+- alias: Bedroom Space Heater Off
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bedroom_temperature
+    above: 70
+  action:
+  - service: switch.turn_off
+    entity_id: switch.bedrooms_ac       
+- alias: Reset Dishwasher Clean Boolean
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.dishwasher_contact
+    to: "on"
+    for: "00:00:99"
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.dishwasher_clean
+- alias: 'Dishwasher Finished'
+  trigger:
+    platform: state
+    entity_id: sensor.dishwasher_state
+    from: 'Washing'
+    to: 'Idle'
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.dishwasher_clean
+  - service: notify.alexa_media_everywhere
+    data:
+      message: The dishes are clean
+      data:
+        type: announce
+        method: tts
+- alias: Music Pause
+  trigger:
+    from: 'on'
+    platform: state
+    entity_id: light.nursery_sconces
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  action:
+    service: media_player.media_play_pause
+    entity_id: media_player.nursery
+- alias: Pasha Button Boolean
+  trigger:
+    platform: state
+    entity_id: sensor.pasha_button_click
+    to: 'single'
+  action:
+    service: input_boolean.toggle
+    entity_id: input_boolean.washer_clean
+- alias: Sylvie_Button
+  trigger:
+    platform: state
+    entity_id: sensor.bedroom_button_click
+    to: 'single'
+  action:
+    service: switch.toggle
+    entity_id: switch.fridge
+- alias: Sienna_Button
+  trigger:
+    platform: state
+    entity_id: sensor.sienna_button_click
+    to: 'single'
+  action:
+    service: light.turn_off
+    entity_id: light.nursery_sconces
+- alias: Find_Phone_Button_Pasha
+  trigger:
+    platform: state
+    entity_id: sensor.find_pasha_phone_click
+    to: 'single'
+  action:
+    service: script.turn_on
+    entity_id: script.find_my_phone
+- alias: Pete Button Boolean
+  trigger:
+    platform: state
+    entity_id: sensor.pete_button_click
+    to: 'single'
+  action:
+    service: input_boolean.toggle
+    entity_id: input_boolean.washer_clean_pete
+- alias: 'Pete Washer Finished'
+  trigger:
+    platform: state
+    entity_id: sensor.washer_state
+    from: 'Washing'
+    to: 'Idle'
+  condition:
+      - condition: state
+        entity_id: input_boolean.washer_clean_pete
+        state: "on"
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.washer_clean_pete
+  - service: notify.twilio
+    data:
+      message: Pete, your clothes are ready to be moved to the dryer.
+      target: +19178060920
+- alias: 'AC State - Start'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ac_watts
+    above: 5
+    for:
+      seconds: 4
+  condition:
+    condition: template
+    value_template: "{{ states.sensor.ac_state.state != 'Running' }}"
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/ac
+        payload: 'Running'
+        retain: 'true'
+- alias: 'AC State - Idle'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ac_watts
+    below: 5
+    for:
+      minutes: 5
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/ac
+        payload: 'Idle'
+        retain: 'true'
+  id: 09b080g89675429e9f8bc1110c11b2fe
+- alias: 'AC Finished'
+  trigger:
+    platform: state
+    entity_id: sensor.ac_state
+    from: 'Running'
+    to: 'Idle'
+  condition:
+      - condition: state
+        entity_id: input_boolean.washer_clean
+        state: "on"
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.washer_clean
+  - service: notify.alexa_media_everywhere
+    data:
+      message: The clothes are ready to be moved to the dryer
+      data:
+        type: announce
+        method: tts
+- alias: 'Bedroom AC State - Start'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bedroom_ac_watts
+    above: 5
+    for:
+      seconds: 4
+  condition:
+    condition: template
+    value_template: "{{ states.sensor.bedroom_ac_state.state != 'Running' }}"
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/ac_bedroom
+        payload: 'Running'
+        retain: 'true'
+- alias: 'Bedroom AC State - Idle'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.bedroom_ac_watts
+    below: 5
+    for:
+      minutes: 5
+  action:
+    - service: mqtt.publish
+      data:
+        topic: hass/state/ac_bedroom
+        payload: 'Idle'
+        retain: 'true'
+  id: 09b070g89675429e9f8bc1110c11b2fe
+- alias: 'Bedroom AC Finished'
+  trigger:
+    platform: state
+    entity_id: sensor.bedroom_ac_state
+    from: 'Running'
+    to: 'Idle'
+  condition:
+      - condition: state
+        entity_id: input_boolean.washer_clean
+        state: "on"
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.washer_clean
+  - service: notify.alexa_media_everywhere
+    data:
+      message: The clothes are ready to be moved to the dryer
+      data:
+        type: announce
+        method: tts
+- alias: Kitchen Tablet Low Battery
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.kitchen_tablet_battery_level
+    below: 21
+  action:
+    service: switch.turn_on
+    entity_id: switch.living_room_3
+- alias: Kitchen Tablet Hi Battery
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.kitchen_tablet_battery_level
+    above: 79
+  action:
+    service: switch.turn_off
+    entity_id: switch.living_room_3
+- alias: Caitlin Lamp On
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_1
+    to: '1'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.bedroom_2
+- alias: Caitlin Lamp Off
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_1
+    to: '4'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.bedroom_2
+- alias: Pasha Lamp On From Caitlin Pico
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_1
+    to: '8'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.bedroom_1
+- alias: Pasha Lamp Off From Caitlin Pico
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_1
+    to: '16'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.bedroom_1
+  - service: switch.turn_off
+    entity_id: switch.bedroom_2
+- alias: Pasha Lamp On
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_2
+    to: '1'
+  action:
+  - service: switch.turn_on
+    entity_id: switch.bedroom_1
+- alias: Pasha Lamp Off
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_2
+    to: '4'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.bedroom_1
+  - service: light.turn_off
+    entity_id: light.master_bedroom_ceiling_fan_light
+- alias: Sienna Pico Script
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_2
+    to: '2'
+  action:
+  - service: script.turn_on
+    entity_id: script.sienna
+# - alias: Sienna Pico Script 2
+#   initial_state: true
+#   trigger:
+#   - platform: state
+#     entity_id: sensor.master_bedroom_pico_1
+#     to: '2'
+#   action:
+#   - service: script.turn_on
+#     entity_id: script.sienna
+- alias: All Lamp Off
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.master_bedroom_pico_1
+    to: '16'
+  action:
+  - service: switch.turn_off
+    entity_id: group.lamps
+  - service: light.turn_off
+    entity_id: light.master_bedroom_ceiling_fan_light

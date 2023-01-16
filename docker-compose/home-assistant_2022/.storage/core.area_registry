@@ -1,0 +1,59 @@
+{
+    "version": 1,
+    "minor_version": 1,
+    "key": "core.area_registry",
+    "data": {
+        "areas": [
+            {
+                "name": "Living Room",
+                "id": "living_room",
+                "picture": null
+            },
+            {
+                "name": "Kitchen",
+                "id": "kitchen",
+                "picture": null
+            },
+            {
+                "name": "Bedroom",
+                "id": "bedroom",
+                "picture": null
+            },
+            {
+                "name": "Main Lights Remote 1",
+                "id": "main_lights_remote_1",
+                "picture": null
+            },
+            {
+                "name": "Front Foyer",
+                "id": "front_foyer",
+                "picture": null
+            },
+            {
+                "name": "Master Bedroom",
+                "id": "master_bedroom",
+                "picture": null
+            },
+            {
+                "name": "Nursery",
+                "id": "nursery",
+                "picture": null
+            },
+            {
+                "name": "Hallway",
+                "id": "hallway",
+                "picture": null
+            },
+            {
+                "name": "Dining Room",
+                "id": "dining_room",
+                "picture": null
+            },
+            {
+                "name": "Main Bathroom",
+                "id": "main_bathroom",
+                "picture": null
+            }
+        ]
+    }
+}

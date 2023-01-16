@@ -1,0 +1,515 @@
+- alias: Tasmota State on HA Restart
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmotas/backlog
+      payload: 'power1 ;power2 ;power3 ;power4 ;power5; dimmer; state '
+  id: d87abbaa17ac4d34ba4b588ae5301a26
+- alias: Entryway Pico On
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.front_foyer_pico_1
+    to: '1'
+  action:
+  - service: light.turn_on
+    entity_id: light.entryway_light
+  id: e4e902d9f5a541a483ae2700559f39b3
+- alias: Entryway Pico 2
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.front_foyer_pico_1
+    to: '4'
+  action:
+  - service: light.turn_off
+    entity_id: light.entryway_light
+  id: 752f303011334befa74d9a396195156b
+- alias: Living Room Pico On
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.front_foyer_pico_2
+    to: '1'
+  action:
+  - service: light.turn_on
+    entity_id: light.living_room_lamp
+  id: afba786326554188b968db8633c298d6
+- alias: Living Room Pico Favorite
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.front_foyer_pico_2
+    to: '2'
+  action:
+  - service: light.turn_on
+    entity_id: light.living_room
+  id: 40ba0dacde9941868852ae957af830f5
+- alias: Living Room Pico Off
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.front_foyer_pico_2
+    to: '4'
+  action:
+  - service: light.turn_off
+    entity_id:
+    - light.living_room
+    - light.living_room_lamp
+  id: cbfa9d06009f4b289860e429a1408544
+- id: '1587828654963'
+  alias: Kodi
+  description: Turn the lights off when Kodi plays
+  trigger:
+  - entity_id: media_player.kodi
+    from: idle
+    platform: state
+    to: playing
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.living_room_hue
+    service: light.turn_off
+- id: '1587830481783'
+  alias: Netflix
+  description: Dim the lights when netflix/hulu/amazon prime plays
+  trigger:
+  - entity_id: media_player.living_room_tv
+    from: 'on'
+    platform: state
+    to: playing
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.living_room_hue
+    service: light.turn_off
+- alias: Bathroom Lights Test
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aqara_motion_bathroom_occupancy
+    to: 'on'
+  condition:
+    condition: time
+    after: '7:00:00'
+    before: '19:00:00'
+  action:
+    service: light.turn_on
+    entity_id: light.bathroom_lights
+  id: 121e4bac919f4aeaa5a8314b6b92b6ee
+- alias: Bathroom Lights Test2
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aqara_motion_bathroom_occupancy
+    to: 'off'
+    for:
+      minutes: 5
+  action:
+    service: light.turn_off
+    entity_id: light.bathroom_lights
+  id: b3b37d5fdb034097ac5d852e4bc314a8
+- alias: Bedroom Notification Test1
+  trigger:
+    platform: state
+    entity_id: binary_sensor.wyzesense_779c36ac
+    to: 'on'
+    for:
+      minutes: 2
+  condition:
+    condition: time
+    after: '7:00:00'
+    before: '20:00:00'
+  action:
+    service: notify.alexa_media_everywhere
+    data:
+      message: The bedroom door is open.
+      data:
+        type: announce
+        method: tts
+  id: 6cb8ecaad6694ef0a552f10f414bd42e
+- alias: Samsung Low Battery
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.sm_g965u1_battery_level
+    below: 21
+  action:
+    service: notify.pusbullet
+    data_template:
+      title: Charge Battery
+      message: Charge phone because battery is {{ states('sensor.sm_g965u1_battery_level')
+        }} percent
+  id: c140605d1df94ec1bdba080f8d300c31
+- alias: Samsung Hi Battery
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.sm_g965u1_battery_level
+    above: 79
+  action:
+    service: notify.pusbullet
+    data_template:
+      title: Stop Charging Battery
+      message: Stop charging phone because battery is {{ states('sensor.sm_g965u1_battery_level')
+        }} percent
+  id: c874a4dd6226414f819904e2ac88b61d
+- alias: Enable Zigbee joining
+  trigger:
+    platform: state
+    entity_id: input_boolean.zigbee_permit_join
+    to: 'on'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'true'
+  - service: timer.start
+    data:
+      entity_id: timer.zigbee_permit_join
+  id: bd1e4918d3564fc9afa952c5d1a22e1e
+- alias: Disable Zigbee joining
+  trigger:
+  - entity_id: input_boolean.zigbee_permit_join
+    platform: state
+    to: 'off'
+  action:
+  - data:
+      payload: 'false'
+      topic: zigbee2mqtt/bridge/config/permit_join
+    service: mqtt.publish
+  - data:
+      entity_id: timer.zigbee_permit_join
+    service: timer.cancel
+  id: ea2b1971d5fd41e9aa280168cc1e6ee2
+- alias: Disable Zigbee joining by timer
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.zigbee_permit_join
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'false'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.zigbee_permit_join
+  id: 1948dd2eb3c54ce5a659e1b5e2548e2d
+- alias: Kitchen Lights On
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aqara_kitchen_occupancy
+    to: 'on'
+  condition:
+    condition: time
+    after: '7:00:00'
+    before: '19:00:00'
+  action:
+    service: light.turn_on
+    entity_id: light.kitchen_main_lights
+  id: 584be41f93094febb42a04203ec1eacf
+- alias: Kitchen Lights Off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.aqara_kitchen_occupancy
+    to: 'off'
+    for:
+      minutes: 1
+  action:
+    service: light.turn_off
+    entity_id: light.kitchen_main_lights
+  id: 6a50000792cb4c6b92ac2c4cf8b003be
+- alias: Bedroom door left open for 5 mins
+  trigger:
+    platform: state
+    entity_id: binary_sensor.wyzesense_779c36ac
+    to: 'on'
+    for:
+      minutes: 5
+  action:
+  - service: script.activate_alexa_actionable_notification
+    data_template:
+      text: The bedroom door has been open for 5 mins, would you like me to turn the
+        light off?
+      event_id: actionable_notification_door_left_open
+      alexa_device: media_player.dining_room_echo
+  id: 72626d73bda4458288c71eba5e0cf8e5
+- alias: Turn off light via actionable notificaiton
+  trigger:
+    platform: event
+    event_type: alexa_actionable_notification
+    event_data:
+      event_id: actionable_notification_door_left_open
+      event_response_type: ResponseYes
+  action:
+  - service: light.turn_off
+    entity_id: light.master_bedroom_ceiling_fan_light
+  id: 6eea476eeb49438084c03b6e072ae054
+- id: '1596583311386'
+  alias: Action Test
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.wyzesense_779c36ac
+    for: '1'
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      alexa_device: media_player.dining_room_echo
+      event_id: actionable_notification_door_left_open
+      text: The bedroom door has been open for 5 mins, would you like me to turn the
+        light off?
+    service: script.activate_alexa_actionable_notification
+  mode: single
+- id: '1596583552453'
+  alias: Action Test 2
+  description: ''
+  trigger:
+  - event_data:
+      event_id: actionable_notification_door_left_open
+      event_response: ResponseYes
+    event_type: alexa_actionable_notifcation
+    platform: event
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.master_bedroom_ceiling_fan_light
+    service: light.turn_off
+  mode: single
+- alias: Nursery Low Temperature
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.0x00158d00036b1a3d_temperature
+    below: 67
+  action:
+    service: notify.pushbullet_caitlin
+    data_template:
+      title: Too Cold
+      message: The Temperature in the Nursery is {{ states('sensor.0x00158d00036b1a3d_temperature')
+        }} Degrees
+  id: 4df6ec1850624467b23d601a5c548ff6
+- alias: Nursery Hi Temperature
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.0x00158d00036b1a3d_temperature
+    above: 73
+  action:
+    service: notify.pushbullet_caitlin
+    data_template:
+      title: Too Hot
+      message: The Temperature in the Nursery is {{ states('sensor.0x00158d00036b1a3d_temperature')
+        }} Degrees
+  id: 110151f29f2f4a049cd4a0c92c42d70f
+- alias: Nursery Space Heater On
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.nursery_temperature
+    below: 68
+  action:
+  - service: switch.turn_on
+    entity_id: switch.living_room_1
+  id: 7b9d5c8427454cc98ea3a8e567c291f6
+- alias: Nursery Space Heater Off
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.nursery_temperature
+    above: 70
+  action:
+  - service: switch.turn_off
+    entity_id: switch.living_room_1
+  id: c37e2f5031ca4537a62679216733f27c
+- alias: Nursery Humidifier On
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.nursery_humidity
+    below: 40
+  action:
+  - service: switch.turn_on
+    entity_id: switch.living_room_2
+  id: f376e92810604abaa2c004c0cb44ff4f
+- alias: Nursery Humidifier Off
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.nursery_humidity
+    above: 50
+  action:
+  - service: switch.turn_on
+    entity_id: switch.living_room_2
+  id: a24321adeb38427a959a3c161973eed2
+- alias: Lights Off When We Leave
+  trigger:
+    platform: state
+    entity_id: group.family
+    to: not_home
+  action:
+  - service: light.turn_off
+    entity_id:
+    - light.bathroom_lights
+    - light.dining_room_lights
+    - light.master_bedroom_ceiling_fan_light
+    - light.nursery_sconces
+    - light.entryway_light
+    - light.0x0017880108197b79_light
+  - service: switch.turn_off
+    entity_id:
+    - switch.living_room_3
+    - switch.bedroom_2
+    - switch.bedroom_1
+  id: 4e160fc575e44f6c97e227dd3e7b4a2c
+- alias: Lights on When We Come Back
+  trigger:
+    platform: state
+    entity_id: group.family
+    to: home
+  action:
+  - service: light.turn_on
+    entity_id:
+    - light.bathroom_lights
+    - light.dining_room_lights
+    - light.master_bedroom_ceiling_fan_light
+    - light.nursery_sconces
+    - light.entryway_light
+    - light.0x0017880108197b79_light
+  - service: switch.turn_on
+    entity_id:
+    - switch.living_room_3
+    - switch.bedroom_2
+    - switch.bedroom_1
+  id: 07d080f92875429e9f8bc1110c11b2fe
+- alias: Boolean Test 3
+  trigger:
+    platform: state
+    entity_id: binary_sensor.mailbox_contact
+    to: 'on'
+  action:
+    service: input_boolean.toggle
+    entity_id: input_boolean.motion_detected
+  id: e22d6278271047e5afe1a1f628f47890
+- alias: Reset Sensor At Midnight
+  trigger:
+  - platform: time
+    at: 00:00:00
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.motion_detected
+  id: f1538a2367274210a5ce29015ad28eea
+- alias: Dishwasher State - Start
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dishwasher_watts
+    above: 5
+    for:
+      seconds: 4
+  condition:
+    condition: template
+    value_template: '{{ states.sensor.dishwasher_state.state != ''Washing'' }}'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: hass/state/Dishwasher
+      payload: Washing
+      retain: 'true'
+  id: 3b1da440d6af41e58eaae4c3a24a1d74
+- alias: Dishwasher State - Idle
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.dishwasher_watts
+    below: 5
+    for:
+      minutes: 5
+  action:
+  - service: mqtt.publish
+    data:
+      topic: hass/state/Dishwasher
+      payload: Idle
+      retain: 'true'
+  id: a6230cc1111a498ab3656ca4dedc76c9
+- alias: Washer State - Start
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    above: 5
+    for:
+      seconds: 4
+  condition:
+    condition: template
+    value_template: '{{ states.sensor.washer_state.state != ''Washing'' }}'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: hass/state/washer
+      payload: Washing
+      retain: 'true'
+  id: c011de34442241f39454995237ec3c19
+- alias: Washer State - Idle
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.washer_watts
+    below: 5
+    for:
+      minutes: 5
+  action:
+  - service: mqtt.publish
+    data:
+      topic: hass/state/washer
+      payload: Idle
+      retain: 'true'
+  id: 04b060g79675429e9f8bj1110t11f2sg
+- alias: Washer Finished
+  trigger:
+    platform: state
+    entity_id: sensor.washer_state
+    from: Washing
+    to: Idle
+  condition:
+  - condition: state
+    entity_id: input_boolean.washer_clean
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.washer_clean
+  - service: notify.alexa_media_everywhere
+    data:
+      message: The clothes are ready to be moved to the dryer
+      data:
+        type: announce
+        method: tts
+  id: 62fd808d8971417eaa6a3be0373facfc
+- id: '1673063887141'
+  alias: New Automation
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: hello-world
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 457db81b2802b8ba73202cc757e48f29
+    entity_id: light.living_room_lamp
+    domain: light
+  mode: single
+- id: '1673064927013'
+  alias: New Automation2
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: hello-worlds
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.living_room_lamp
+  mode: single
+- id: '1673066807843'
+  alias: New Automation3
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.washer_clean
+  condition: []
+  action:
+  - service: rest_command.autoremote_kitchen_open_nanit
+  mode: single

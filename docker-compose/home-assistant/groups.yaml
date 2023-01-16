@@ -1,0 +1,18 @@
+  family:
+    name: Family
+    entities:
+      - person.caitlin
+      - person.pasha
+  echos:
+    name: Echomania
+    entities:
+      - media_player.dining_room_echo
+      - media_player.paul_s_4th_echo_dot
+      - media_player.kitchen_echo_dot
+      - media_player.bedroom_echo_dot
+  lamps:
+    name: Lamps
+    entities:
+      - switch.bedroom_2
+      - switch.bedroom_1
+      - switch.fridge

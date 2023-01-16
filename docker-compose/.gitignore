@@ -1,0 +1,8 @@
+config/
+grafana_data/
+home_assistant/
+home_assistant_20222/
+influxdb_data/
+letencsrypt/
+mosquitto/
+zigbee2mqtt/

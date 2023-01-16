@@ -1,0 +1,1343 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+#default_config:#
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.18.0.6
+
+homeassistant:
+  external_url: https://hass.pashdoctor.com
+  auth_mfa_modules:
+    - type: totp
+  auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.1.224
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+automation man: !include automations-man.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+homeassistant:
+ name: Home
+ unit_system: imperial
+ customize: !include customize.yaml
+  # etc
+cloud: !include cloud.yaml
+# Example configuration.yaml entry
+spotify:
+  client_id: fd587788f224442b99b0194289ad6f94
+  client_secret: 0237ce445cd143a99ebe51c7677e1177
+binary_sensor:
+  - platform: wyzesense
+    device: auto
+# Example configuration.yaml entry
+wake_on_lan:
+  #mac: "a8:23:fe:e5:45:55"
+  #host: 192.168.15.3
+# Example configuration.yaml entry
+webostv:
+  host: 192.168.15.15
+  name: 'Living Room TV'
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: "a8:23:fe:e5:45:55"
+      broadcast_address: 192.168.15.3
+  customize:
+    sources:
+        - livetv
+        - youtube
+        - makotv
+        - netflix
+        - Amazon Prime Video
+        - hulu
+        - HDMI
+# Example configuration.yaml entry
+media_player:
+  - platform: denonavr
+    host: 192.168.15.9
+    name: Living Room Denon
+    show_all_sources: true
+    timeout: 5
+    zones:
+      - zone: Zone2
+        name: Zone2
+# Example configuration.yaml entry
+sensor:
+  - platform: pushbullet
+    api_key: o.eBTawHw74lF1cldKmp6CDRvwsYRHtE5O
+    monitored_conditions:
+      - body
+  - platform: template
+    sensors:
+      switch_plug_6_amps:
+        friendly_name_template: "{{ states.switch.plug_6.name}} Current"
+        value_template: '{{ states.switch.plug_6.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      switch_plug_6_watts:
+        friendly_name_template: "{{ states.switch.plug_6.name}} Current Consumption"
+        value_template: '{{ states.switch.plug_6.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      switch_plug_6_total_kwh:
+        friendly_name_template: "{{ states.switch.plug_6.name}} Total Consumption"
+        value_template: '{{ states.switch.plug_6.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      switch_plug_6_volts:
+        friendly_name_template: "{{ states.switch.plug_6.name}} Voltage"
+        value_template: '{{ states.switch.plug_6.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      switch_plug_6_today_kwh:
+        friendly_name_template: "{{ states.switch.plug_6.name}} Today's Consumption"
+        value_template: '{{ states.switch.plug_6.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+  - platform: template
+    sensors:
+      switch_plug_5_amps:
+        friendly_name_template: "{{ states.switch.plug_5.name}} Current"
+        value_template: '{{ states.switch.plug_5.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      switch_plug_5_watts:
+        friendly_name_template: "{{ states.switch.plug_5.name}} Current Consumption"
+        value_template: '{{ states.switch.plug_5.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      switch_plug_5_total_kwh:
+        friendly_name_template: "{{ states.switch.plug_5.name}} Total Consumption"
+        value_template: '{{ states.switch.plug_5.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      switch_plug_5_volts:
+        friendly_name_template: "{{ states.switch.plug_5.name}} Voltage"
+        value_template: '{{ states.switch.plug_5.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      switch_plug_5_today_kwh:
+        friendly_name_template: "{{ states.switch.plug_5.name}} Today's Consumption"
+        value_template: '{{ states.switch.plug_5.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+  - platform: template
+    sensors:
+      switch_plug_4_amps:
+        friendly_name_template: "{{ states.switch.plug_4.name}} Current"
+        value_template: '{{ states.switch.plug_4.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      switch_plug_4_watts:
+        friendly_name_template: "{{ states.switch.plug_4.name}} Current Consumption"
+        value_template: '{{ states.switch.plug_4.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      switch_plug_4_total_kwh:
+        friendly_name_template: "{{ states.switch.plug_4.name}} Total Consumption"
+        value_template: '{{ states.switch.plug_4.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      switch_plug_4_volts:
+        friendly_name_template: "{{ states.switch.plug_4.name}} Voltage"
+        value_template: '{{ states.switch.plug_4.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      switch_plug_4_today_kwh:
+        friendly_name_template: "{{ states.switch.plug_4.name}} Today's Consumption"
+        value_template: '{{ states.switch.plug_4.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+  - platform: template
+    sensors:
+      switch_plug_3_amps:
+        friendly_name_template: "{{ states.switch.plug_3.name}} Current"
+        value_template: '{{ states.switch.plug_3.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      switch_plug_3_watts:
+        friendly_name_template: "{{ states.switch.plug_3.name}} Current Consumption"
+        value_template: '{{ states.switch.plug_3.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      switch_plug_3_total_kwh:
+        friendly_name_template: "{{ states.switch.plug_3.name}} Total Consumption"
+        value_template: '{{ states.switch.plug_3.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      switch_plug_3_volts:
+        friendly_name_template: "{{ states.switch.plug_3.name}} Voltage"
+        value_template: '{{ states.switch.plug_3.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      switch_plug_3_today_kwh:
+        friendly_name_template: "{{ states.switch.plug_3.name}} Today's Consumption"
+        value_template: '{{ states.switch.plug_3.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+  - platform: template
+    sensors:
+      switch_plug_2_amps:
+        friendly_name_template: "{{ states.switch.plug_2.name}} Current"
+        value_template: '{{ states.switch.plug_2.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      switch_plug_2_watts:
+        friendly_name_template: "{{ states.switch.plug_2.name}} Current Consumption"
+        value_template: '{{ states.switch.plug_2.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      switch_plug_2_total_kwh:
+        friendly_name_template: "{{ states.switch.plug_2.name}} Total Consumption"
+        value_template: '{{ states.switch.plug_2.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      switch_plug_2_volts:
+        friendly_name_template: "{{ states.switch.plug_2.name}} Voltage"
+        value_template: '{{ states.switch.plug_2.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      switch_plug_2_today_kwh:
+        friendly_name_template: "{{ states.switch.plug_2.name}} Today's Consumption"
+        value_template: '{{ states.switch.plug_2.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+  - platform: mqtt
+    name: "Kitchen1 Watts"
+    state_topic: "tele/SW_Kitchen1/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen1 Voltage"
+    state_topic: "tele/SW_Kitchen1/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen1 Amps"
+    state_topic: "tele/SW_Kitchen1/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen1 Energy Today"
+    state_topic: "tele/SW_Kitchen1/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen1 Energy Yesterday"
+    state_topic: "tele/SW_Kitchen1/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Kitchen1/STATE"
+    name: "Kitchen1 Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen2 Watts"
+    state_topic: "tele/SW_Kitchen2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen2 Voltage"
+    state_topic: "tele/SW_Kitchen2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen2 Amps"
+    state_topic: "tele/SW_Kitchen2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen2 Energy Today"
+    state_topic: "tele/SW_Kitchen2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Kitchen2 Energy Yesterday"
+    state_topic: "tele/SW_Kitchen2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Kitchen2/STATE"
+    name: "Kitchen2 Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom1 Watts"
+    state_topic: "tele/SW_Broom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Broom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom1 Voltage"
+    state_topic: "tele/SW_Broom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Broom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom1 Amps"
+    state_topic: "tele/SW_Broom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Broom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom1 Energy Today"
+    state_topic: "tele/SW_Broom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Broom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom1 Energy Yesterday"
+    state_topic: "tele/SW_Broom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Broom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Broom/STATE"
+    name: "Bathroom1 Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Broom/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom2 Watts"
+    state_topic: "tele/SW_Broom2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Broom2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom2 Voltage"
+    state_topic: "tele/SW_Broom2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Broom2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom2 Amps"
+    state_topic: "tele/SW_Broom2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Broom2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom2 Energy Today"
+    state_topic: "tele/SW_Broom2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Broom2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bathroom2 Energy Yesterday"
+    state_topic: "tele/SW_Broom2/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Broom2/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Broom2/STATE"
+    name: "Bathroom2 Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Broom2/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "AC State"
+    state_topic: "hass/state/ac"
+    icon: mdi:air-conditioner
+  - platform: mqtt
+    name: "AC Watts"
+    state_topic: "tele/SW_AC/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_AC/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "AC Voltage"
+    state_topic: "tele/SW_AC/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_AC/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "AC Amps"
+    state_topic: "tele/SW_AC/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_AC/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "AC Energy Today"
+    state_topic: "tele/SW_AC/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_AC/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "AC Yesterday"
+    state_topic: "tele/SW_AC/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_AC/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_AC/STATE"
+    name: "AC Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_AC/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom AC State"
+    state_topic: "hass/state/ac_bedroom"
+    icon: mdi:air-conditioner
+  - platform: mqtt
+    name: "Bedroom AC Watts"
+    state_topic: "tele/SW_AC_Bedroom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_AC_Bedroom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom AC Voltage"
+    state_topic: "tele/SW_AC_Bedroom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_AC_Bedroom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom AC Amps"
+    state_topic: "tele/SW_AC_Bedroom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_AC_Bedroom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom AC Energy Today"
+    state_topic: "tele/SW_AC_Bedroom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_AC_Bedroom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom AC Yesterday"
+    state_topic: "tele/SW_AC_Bedroom/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_AC_Bedroom/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_AC_Bedroom/STATE"
+    name: "Bedroom AC Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_AC_Bedroom/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Oven State"
+    state_topic: "hass/state/Oven"
+    icon: mdi:air-conditioner
+  - platform: mqtt
+    name: "Oven Watts"
+    state_topic: "tele/SW_Oven/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Oven/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Oven Voltage"
+    state_topic: "tele/SW_Oven/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Oven/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Oven Amps"
+    state_topic: "tele/SW_Oven/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Oven/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Oven Energy Today"
+    state_topic: "tele/SW_Oven/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Oven/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Oven Yesterday"
+    state_topic: "tele/SW_Oven/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Oven/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Oven/STATE"
+    name: "Oven Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Oven/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Fridge State"
+    state_topic: "hass/state/Fridge"
+    icon: mdi:air-conditioner
+  - platform: mqtt
+    name: "Fridge Watts"
+    state_topic: "tele/SW_Fridge/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Fridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Fridge Voltage"
+    state_topic: "tele/SW_Fridge/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Fridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Fridge Amps"
+    state_topic: "tele/SW_Fridge/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Fridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Fridge Energy Today"
+    state_topic: "tele/SW_Fridge/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Fridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Fridge Yesterday"
+    state_topic: "tele/SW_Fridge/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Fridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Fridge/STATE"
+    name: "Fridge Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Fridge/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Dishwasher State"
+    state_topic: "hass/state/Dishwasher"
+    icon: mdi:dishwasher
+  - platform: mqtt
+    name: "Dishwasher Watts"
+    state_topic: "tele/SW_Dishwasher/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Dishwasher/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Dishwasher Voltage"
+    state_topic: "tele/SW_Dishwasher/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Dishwasher/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Dishwasher Amps"
+    state_topic: "tele/SW_Dishwasher/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Dishwasher/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Dishwasher Energy Today"
+    state_topic: "tele/SW_Dishwasher/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Dishwasher/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Dishwasher Yesterday"
+    state_topic: "tele/SW_Dishwasher/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Dishwasher/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Dishwasher/STATE"
+    name: "Dishwasher Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Dishwasher/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Washer State"
+    state_topic: "hass/state/washer"
+    icon: mdi:washing-machine
+  - platform: mqtt
+    name: "Washer Watts"
+    state_topic: "tele/SW_Washer/SENSOR"
+    value_template: "{{value_json['ENERGY'].Power }}"
+    qos: 2
+    unit_of_measurement : "W"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Washer/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Washer Voltage"
+    state_topic: "tele/SW_Washer/SENSOR"
+    value_template: "{{value_json['ENERGY'].Voltage }}"
+    qos: 2
+    unit_of_measurement : "V"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Washer/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Washer Amps"
+    state_topic: "tele/SW_Washer/SENSOR"
+    value_template: "{{value_json['ENERGY'].Current }}"
+    qos: 2
+    unit_of_measurement : "A"
+    icon: mdi:flash-circle
+    availability_topic: "tele/SW_Washer/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Washer Energy Today"
+    state_topic: "tele/SW_Washer/SENSOR"
+    value_template: "{{value_json['ENERGY'].Today }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Washer/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Washer Yesterday"
+    state_topic: "tele/SW_Washer/SENSOR"
+    value_template: "{{value_json['ENERGY'].Yesterday }}"
+    qos: 2
+    unit_of_measurement : "kWh"
+    availability_topic: "tele/SW_Washer/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    state_topic: "tele/SW_Washer/STATE"
+    name: "Washer Signal"
+    unit_of_measurement: "%"
+    value_template: "{{value_json['Wifi'].RSSI }}"
+    availability_topic: "tele/SW_Washer/LWT"
+    qos: 1
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: template
+    sensors:
+      last_alexa:
+        value_template: >
+          {{ expand(states.group.echos) | selectattr('attributes.last_called','eq',True) | map(attribute='entity_id') | first}}
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
+      - type: processor_use
+  - platform: mqtt
+    name: Bridge state
+    state_topic: "zigbee2mqtt/bridge/state"
+    icon: mdi:router-wireless
+
+notify:
+  - name: pusbullet
+    platform: pushbullet
+    api_key: o.eBTawHw74lF1cldKmp6CDRvwsYRHtE5O
+  - name: pushbullet_caitlin
+    platform: pushbullet
+    api_key: o.l3qnS2Kzj6xoiOwUSnsUsapTSi6voSDS
+  - platform: joaoapps_join
+    api_key: 98f8177d1952406683a20292f3d0002e
+    device_id: 1b17ce0b036d4427b82e078eb68e7f0f
+    name: Computer
+  - name: twilio
+    platform: twilio_sms
+    from_number: +16108549252
+# Example configuration.yaml entry
+light:
+  - platform: group
+    name: Entryway Light
+    entities:
+      - light.0x0017880106c01547
+      - light.0x00178801089e29fe
+  - platform: group
+    name: Bathroom Lights
+    entities:
+      - light.main_bathroom_main_lights
+      - light.main_bathroom_sconces
+  - platform: group
+    name: Dining Room Lights
+    entities:
+      - light.dining_room_cove_lights
+      - light.dining_room_main_lights
+      - light.dining_room_chandelier
+      
+# Example configuration.yaml entry
+frontend:
+  themes: !include_dir_merge_named themes
+
+switch:
+  - platform: template
+    switches:
+      denon_heos_music:
+        friendly_name: Denon HEOS Music
+        value_template: >
+         {{ is_state_attr('media_player.denon_avr_x1500h', 'source', 'HEOS Music') }}
+        turn_on:
+         service: media_player.select_source
+         data:
+           entity_id: media_player.denon_avr_x1500h
+           source: 'HEOS Music'
+        turn_off:
+         service: media_player.turn_off
+         entity_id: media_player.denon_avr_x1500h
+  - platform: template
+    switches:
+      netflix:
+        friendly_name: Netflix
+        value_template: >
+         {{ is_state_attr('media_player.living_room_tv', 'source', 'Netflix') }}
+        turn_on:
+        - service: media_player.turn_on
+          entity_id: media_player.living_room_tv
+        - delay: 00:00:30
+        - service: media_player.select_source
+          data:
+            entity_id: media_player.living_room_tv
+            source: 'Netflix'
+        - delay: 00:00:32
+        - service: webostv.button
+          data:
+            entity_id: media_player.living_room_tv
+            button: ENTER
+        turn_off:
+         service: media_player.turn_off
+         entity_id: media_player.living_room_tv
+  - platform: template
+    switches:
+      kodi:
+        friendly_name: Kodi
+        value_template: >
+         {{ is_state_attr('media_player.living_room_tv', 'source', 'HDMI 2') }}
+        turn_on:
+        - service: media_player.turn_on
+          entity_id: media_player.living_room_tv
+        - delay: 00:00:08
+        - service: media_player.select_source
+          data:
+            entity_id: media_player.living_room_tv
+            source: 'HDMI 2'
+        - delay: 00:00:10
+        - service: media_player.select_source
+          data:
+            entity_id: media_player.denon_avr_x1500h
+            source: 'Media Player'
+        turn_off:
+         service: media_player.turn_off
+         entity_id: media_player.living_room_tv
+  - platform: template
+    switches:
+      youtube:
+        friendly_name: YouTube
+        value_template: >
+         {{ is_state_attr('media_player.living_room_tv', 'source', 'YouTube') }}
+        turn_on:
+        - service: media_player.turn_on
+          entity_id: media_player.living_room_tv
+        - delay: 00:00:08
+        - service: media_player.select_source
+          data:
+            entity_id: media_player.living_room_tv
+            source: 'YouTube'
+        turn_off:
+         service: media_player.turn_off
+         entity_id: media_player.living_room_tv
+  - platform: template
+    switches:
+      nanit:
+        value_template: "{{ is_state('input_boolean.nanit_state', 'on') }}"
+        turn_on:
+          service: script.nanit_on
+        turn_off:
+          service: script.nanit_off
+  - platform: template
+    switches:
+      kitchen_nanit:
+        value_template: "{{ is_state('input_boolean.kitchen_nanit_state', 'on') }}"
+        turn_on:
+          service: script.kitchen_nanit_on
+        turn_off:
+          service: script.kitchen_nanit_off
+  - platform: template
+    switches:
+      door:
+        value_template: "{{ is_state('input_boolean.door_state', 'on') }}"
+        turn_on:
+          service: script.door_on
+        turn_off:
+          service: script.kitchen_nanit_off
+  - platform: template
+    switches:
+      kitchen_door:
+        value_template: "{{ is_state('input_boolean.kitchen_door_state', 'on') }}"
+        turn_on:
+          service: script.kitchen_door_on
+        turn_off:
+          service: script.kitchen_nanit_off
+  - platform: switchbot
+    mac: c9:63:93:c1:e3:d3
+  - platform: mqtt
+    name: "Bathroom"
+    state_topic: "stat/SW_Broom/POWER1"
+    command_topic: "cmnd/SW_Broom/POWER1"
+    availability_topic: "tele/SW_Broom/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - platform: mqtt
+    name: "Bathroom2"
+    state_topic: "stat/SW_Broom/POWER2"
+    command_topic: "cmnd/SW_Broom/POWER2"
+    availability_topic: "tele/SW_Broom/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - platform: mqtt
+    name: "Bathroom3"
+    state_topic: "stat/SW_Broom2/POWER1"
+    command_topic: "cmnd/SW_Broom2/POWER1"
+    availability_topic: "tele/SW_Broom2/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - platform: mqtt
+    name: "Bathroom4"
+    state_topic: "stat/SW_Broom2/POWER2"
+    command_topic: "cmnd/SW_Broom2/POWER2"
+    availability_topic: "tele/SW_Broom2/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - platform: mqtt
+    name: "Kitchen1"
+    state_topic: "stat/SW_Kitchen1/POWER1"
+    command_topic: "cmnd/SW_Kitchen1/POWER1"
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - platform: mqtt
+    name: "Kitchen2"
+    state_topic: "stat/SW_Kitchen1/POWER2"
+    command_topic: "cmnd/SW_Kitchen1/POWER2"
+    availability_topic: "tele/SW_Kitchen1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - platform: mqtt
+    name: "Kitchen3"
+    state_topic: "stat/SW_Kitchen2/POWER1"
+    command_topic: "cmnd/SW_Kitchen2/POWER1"
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - platform: mqtt
+    name: "Kitchen4"
+    state_topic: "stat/SW_Kitchen2/POWER2"
+    command_topic: "cmnd/SW_Kitchen2/POWER2"
+    availability_topic: "tele/SW_Kitchen2/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom 1"
+    state_topic: "stat/SW_BedRoom1/POWER1"
+    command_topic: "cmnd/SW_BedRoom1/POWER1"
+    availability_topic: "tele/SW_BedRoom1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom 2"
+    state_topic: "stat/SW_BedRoom1/POWER2"
+    command_topic: "cmnd/SW_BedRoom1/POWER2"
+    availability_topic: "tele/SW_BedRoom1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom 3"
+    state_topic: "stat/SW_BedRoom1/POWER3"
+    command_topic: "cmnd/SW_BedRoom1/POWER3"
+    availability_topic: "tele/SW_BedRoom1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedroom 4"
+    state_topic: "stat/SW_BedRoom1/POWER4"
+    command_topic: "cmnd/SW_BedRoom1/POWER4"
+    availability_topic: "tele/SW_BedRoom1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Living Room 1"
+    state_topic: "stat/SW_LRoom1/POWER1"
+    command_topic: "cmnd/SW_LRoom1/POWER1"
+    availability_topic: "tele/SW_LRoom1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Living Room 2"
+    state_topic: "stat/SW_LRoom1/POWER2"
+    command_topic: "cmnd/SW_LRoom1/POWER2"
+    availability_topic: "tele/SW_LRoom1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Living Room 3"
+    state_topic: "stat/SW_LRoom2/POWER1"
+    command_topic: "cmnd/SW_LRoom2/POWER1"
+    availability_topic: "tele/SW_LRoom2/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Living Room 4"
+    state_topic: "stat/SW_LRoom2/POWER2"
+    command_topic: "cmnd/SW_LRoom2/POWER2"
+    availability_topic: "tele/SW_LRoom2/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Dining Room AC"
+    state_topic: "stat/SW_AC/POWER"
+    command_topic: "cmnd/SW_AC/POWER"
+    availability_topic: "tele/SW_AC/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Fridge"
+    state_topic: "stat/SW_Fridge/POWER"
+    command_topic: "cmnd/SW_Fridge/POWER"
+    availability_topic: "tele/SW_Fridge/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Bedrooms_AC"
+    state_topic: "stat/SW_AC_Bedroom/POWER"
+    command_topic: "cmnd/SW_AC_Bedroom/POWER"
+    availability_topic: "tele/SW_AC_Bedroom/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: broadlink
+    #host: 192.168.15.22#
+    mac: 24:df:a7:e0:02:48
+    switches:
+      # ac_down:
+      #   friendly_name: "AC Down Test"
+      #   command_on: "JgBoAAABIJQSEhMSExITOBISExITEhMSEjgTEhM3ExITNxM4EjgTNxM4EhMSOBI4ExISExITEhMSEhM4EhMSExI4EjgTNxM4EgAFVAABJ0oSAAxuAAEkShIADHAAASJKEgAMbwABI0oSAA0FAAAAAAAAAAAAAAAAAAA="
+      # ac_power_test:
+      #   friendly_name: "AC Power Test"
+      #   command_on: "JgBQAQABIpMUERMRFBEUNxMRFBEUERQRFDYUERQ2FBEUNxM3FDYUNhQ3ExITERQRFDYUERQRFBEUERQ2FDYUNxQRFDYUNhQ2FAAFUgABKEgUAAxsAAEiSxIADG0AASVJEwAMbQABI0oSAAxuAAEjShMADG0AASNKEwAMbwABIUoTAAxxAAEfSxIADG4AASNKEgAMbQABI0oTAAxtAAEiSxIADG0AASNKEwAMbAABJUgVAAxrAAElSBMADGwAASVIFAAMbgABI0gTAAxtAAEmRhQADGwAASJLEQAMbgABI0oSAAxuAAEjShIADGwAASZIFAAMawABJUgUAAxrAAEmSBQADGwAASVIFAAMbAABIksRAAxvAAEiShIADHEAAR9LEQAMbgABI0oSAAxuAAEjShMADG0AASNKEgAMbAABJEoSAAxtAAEkSRIADG0AASNLEgANBQAAAAAAAA=="
+      # ac_power_tests:
+      #   friendly_name: "AC Power Tests"
+      #   command_on: "JgBcAAABI5USEhITEhMSOBITEhMSExITEjgTEhM3ExISORE5EjkROBI5EhMRExITEjkSEhITEhMSExI4EjkSORcNEjgTNxI4EwAFVAABJ0kTAAxvAAEhShIABiQJAA0FAAAAAAAAAAAAAA=="
+      # ac_up:
+      #   friendly_name: "AC Up Test"
+      #   command_on: "JgBgAAABJJMTEhITEhMSOBITEhMSExITEjgSExI4EhMSOBI4EzgSOBITEjgSOBM3ExITEhMSExISOBMSExISExI4EjkSOBI4EgAFVAABKEgUAAxvAAEjSBQADG0AASZHFAANBQAAAAAAAA=="
+      # ac_fan_low_test:
+      #   friendly_name: "AC Fan Low Test"
+      #   command_on: "JgBoAAABJZMTEhMSExISOBMSExISExITEjgTEhI4ExITNxM4EjgSOBMSEhMSOBMSExISExITEhMSOBI4ExISOBM3EzgTNxM3EwAFVAABKUcVAAxsAAEjShIADG4AASRKEgAMbgABJUgUAA0FAAAAAAAAAAAAAAAAAAA="
+      # ac_fan_hi_test:
+      #   friendly_name: "AC Fan Hi Test"
+      #   command_on: "JgBgAAABI5IUERQQFRAVNhQQFRAVEBUQFDYTEhU1FRAVNhQ2FDYVNRU2FBEUEBUQFRAUERQRFBEUERQ2FDYVNRU2FDYUNhU1FQAFUgABJ0kTAAxuAAEkSRMADG8AASNKEgANBQAAAAAAAA=="
+  - platform: broadlink
+    #host: 192.168.15.24#
+    mac: 24:df:a7:e0:1a:48
+    # switches:
+    #   ac_cool:
+    #     friendly_name: "AC Cool"
+    #     command_on: "JgBoAAABI5QSExISExITOBISExITEhMSEjgTEhM3ExITNxM4EjgSOBM3ExITEhM3ExITEhMSExISExI4EjgTEhI4EzgSOBI4EgAFVAABJkoSAAxtAAEkSRMADG0AASNKEgAMbQABJEkTAA0FAAAAAAAAAAAAAAAAAAA="
+    #   ac_fan_down:
+    #     friendly_name: "AC Fan Down"
+    #     command_on: "JgBoAAABJZMTEhMSExISOBMSExISExITEjgTEhI4ExITNxM4EjgSOBMSEhMSOBMSExISExITEhMSOBI4ExISOBM3EzgTNxM3EwAFVAABKUcVAAxsAAEjShIADG4AASRKEgAMbgABJUgUAA0FAAAAAAAAAAAAAAAAAAA="
+    #   ac_fan_up:
+    #     friendly_name: "AC Fan Up"
+    #     command_on: "JgBgAAABI5IUERQQFRAVNhQQFRAVEBUQFDYTEhU1FRAVNhQ2FDYVNRU2FBEUEBUQFRAUERQRFBEUERQ2FDYVNRU2FDYUNhU1FQAFUgABJ0kTAAxuAAEkSRMADG8AASNKEgANBQAAAAAAAA=="
+    #   ac_fan_only:
+    #     friendly_name: "AC Fan Only"
+    #     command_on: "JgBoAAABJJEVEBUQFBEUNhUQFBEUERITEjgUERI4EhMSOBM3EzgSOBQ2FDYVNhQQFRAVEBUQFBEUERQRFBAVNhQ2FDYUNhU2FAAFUQABKUgUAAxrAAEjShIADG0AASRJEwAMbQABI0oSAA0FAAAAAAAAAAAAAAAAAAA="
+    #   ac_temp_up:
+    #     friendly_name: "AC Temp Up"
+    #     command_on: "JgBgAAABJJMTEhITEhMSOBITEhMSExITEjgSExI4EhMSOBI4EzgSOBITEjgSOBM3ExITEhMSExISOBMSExISExI4EjkSOBI4EgAFVAABKEgUAAxvAAEjSBQADG0AASZHFAANBQAAAAAAAA=="
+    #   ac_temp_down:
+    #     friendly_name: "AC Temp Down"
+    #     command_on: "JgBoAAABIJQSEhMSExITOBISExITEhMSEjgTEhM3ExITNxM4EjgTNxM4EhMSOBI4ExISExITEhMSEhM4EhMSExI4EjgTNxM4EgAFVAABJ0oSAAxuAAEkShIADHAAASJKEgAMbwABI0oSAA0FAAAAAAAAAAAAAAAAAAA="
+    #   ac_power:
+    #     friendly_name: "AC Power"
+    #     command_on: "JgBgAAABIpMSExMSEhcOOBITEhMSEhMSEzgSEhM4EhMSOBI4EzcTOBI4EhMSExITEjgSExITEhITEhM4EjgSOBMSEjgTOBI4EgAFVAABJ0kTAAxuAAEjShIADG8AASJKEgANBQAAAAAAAA=="
+    #   bedroom_ac_power:
+    #     friendly_name: "Bedroom AC Power"
+    #     command_on: "JgCwBBE0EYoRNBI0ERIRNBESERIREhESFAACcQABE4oRNBE1EDUREhE0ERMQNRE0EYoSMxE1ERIRNBESERIREhESFAACcQABE4oRNBE1EDUREhE1EBMQNRE1EYkSMxE1ERIRNBESERIREhESFAACcQABE4oRNBE1EDUREhE1EBMQNRE0EYoSMxE1ERIRNBESERIREhESFAACcQABE4oRNBI0ETQREhE1EBMQNRE1EIoRNRA1EhERNBIRERIREhIRFAACcQABE4oSMxE1ETQREhE1EBMQNRE1EIoRNRE0EhERNBESERIREhESFAACcQABE4oSMxE1ETQREhE1ERIQNRE0EokRNRA1ERIRNBESERIREhESFAACcQABE4oRNBI0ETQREhE1EBMQNRE1EIoSNBA1EhERNBESERIREhESFAACcQABE4oRNBE1ETQREhE1EBMQNRE1EIoSNBA1EhERNBESERIREhESFAACcQABE4oRNBE1ETQREhE1EBMQNRE1EIoRNRE0ERIRNBIRERIREhESFAACcQABE4oRNBE1ETQREhE1ERIQNRE1EIoSNBA1ERIRNBETEBIREhESFAACcQABFIkRNBE1ETQREhE1ERIRNBE1EIoSNBA1ERIRNRERERMQExASFAACcQABE4oSMxI0ETQREhE1EBMQNRE1EYkSNBE0ERIRNBETEBIRExASFAACcgABEooSMxI0EjMREhE1ERIRNBE1EIoSNBA1ERIRNRATEBMQExIREwACcgABE4kRNBI0ETQREhE1ERIRNBE1EIoRNRE0ERIRNRESEBMQExATEwACcQABE4oSMxE1ETQREhE1ERIRNBE1EIoSNBA1ERIRNRATEBMQExASFAACcgABEooSMxE1ETQREhE1ERIRNBE1EIoRNRE0ERIRNRATEBMQExATEwACcQABE4oRNBE1ETQREhE1ERIRNBE1EYkRNRE0ERIRNRATEBMQExATEwACcQABFIkRNBE1ETQREhE1ERIRNBE1EIoSNBE0ERIRNRATEBMQExATEwACcQABFIkSMxE1ETQREhE1ERIRNBE1EYkRNRE0ERIRNRATEBMQExATEwACcQABFIkRNBE1ETQREhE1ERIRNBE1EYkSNBE0ERIRNRATEBMQExATEwACcgABE4kRNBE1ETQREhE1ERIRNBE1EYkRNRE0ERIRNRATEBMQExATEwACcQABFIkSMxE1ETQREhE1EhERNBI0EYkSNBE0ERIRNRATERIQExATEwACcgABE4kSMxE1ETQREhE1ERIRNBE1EYkSNBE0ERIRNRESEBMQExATEwACcQABFIkSNBA1ETQREhE1ERIRNBE1EYkSNBE0ERIRNRESERIQExATEwACcgABE4kSNBA1ETQREhE1ERIRNBE1EYkSNBE0ERIRNRESERIREhESEwACcgABE4kSNBA1ETQREhE1ERIRNBE1EYkSNBE0ERIRNRESERIREhESEwACcgABE4kRNRE0ETQREhE1ERIRNBE1EokRNBE0ERIRNRESERIREhESEwACcgABE4kSNBA1ETQSERE1ERIRNBE1EYkSNBE0ERIRNRESERIREhESEwANBQAAAAAAAA=="
+    #   bedroom_ac_fan_up:
+    #     friendly_name: "Bedroom AC Fan Up"
+    #     command_on: "JgB2AgABDokRNRE0ETUREhE1EBIRNRE0EYoSMxESETUQExATEBMQExATFAACawABE4kSNBE0ETUREhE0ERIRNRA1EYoQNRIRETQRExATEBIREhESFQACawABE4kRNRA1ETQRExA1ERIRNBE1EYkRNRESETQREhESERIREhESFAACawABE4oSMxE1ETQREhE1ERIRNBE1EIoRNRESEDUREhESERIREhESFAACawABE4oRNBE1EDUREhI0EBMQNRE0EYoRNBIRETUSERESERIREhESEwACbAABE4oRNBE1EDUREhE0ERIRNRE0EYoRNBESETUREhATERIQExATEwACbAABE4kSNBE0ETUREhA1ERIRNRA1EYoQNRESETUREhATEBMQExATEwACbAABE4kRNRA1ETQRExA1ERIRNBE1EYkRNRESETQREhESERIREhESFAACawABFIkRNBE1ETQREhE1ERIRNBE1EYkSNBESETQREhESERIREhESEwACbAABFIkRNBE1EDUREhE1EBMQNRE0EYoSMxESETUREhESERIREhESEwACbAABE4oQNRE1EDUREhE0ERIRNRE0EokRNBESETUREhESERIQExATEwACbAABE4kSNBE0EjQREhE0ERIRNRA1EYoQNRESETQRExATEBMQExASFAACbAABE4kRNRA1ETQRExA1ERIRNBI0EYkRNRESETQREhESERISERESFAACawABFIkRNBE1ETQREhE1ERIRNBE1EYkRNRESEDUREhESEhEREhESFAACawABE4oRNBE1ETQREhE1EBMQNRE0EYoRNRATEDUREhESERIREhESEwANBQ=="
+    #   bedroom_ac_fan_down:
+    #     friendly_name: "Bedroom AC Fan Down"
+    #     command_on: "JgD4AQABDooRNBE1ETQREhE1EBMYLRE0EYoREhESETQREhESERIREhESFAACagABEooRNBE1ETQREhE1ERIRNRA1EIoREhESETUREhESEBMQExATEwACagABE4kRNRE0ETUREhE0ERIRNBE1EYkREhESETUREhESERIREhESEwACagABE4oQNRE0ETUREhE0ERIRNRE0EYoREhESETQREhESERIREhESFAACaQABE4oRNBE1ETQREhE1EBMQNRE0EYoREhESETQREhESERIREhESFAACagABE4kSMxE1ETQREhE1ERIRNBE1EYkREhESETUREhESEBMREhESEwACagABE4kSNBE0EjQQExA1ERIRNBE1EYoQExATEDUREhESEhEREhESFAACaQABE4kRNRE0ETUSERE0ERIRNRE0EYoREhESETQREhESERIREhESFAACaQABFIkRNBE1ETQREhE1EBMQNRE0EYoREhESETUQExATEBIREhESFAACagABE4kRNBE1ETQREhE1ERIRNBE1EYkSERESETUREhESERIREhESEwACagABE4kSNBE0ETUQExA1ERIRNRA1EYoREhESEDUREhESERIREhESEwACagABFIkQNRE0ETUREhE0ERIRNRE0EYoSERESETQREhESERIREhESFAANBQAAAAAAAAAAAAAAAAAA"
+    #   bedroom_ac_temp_up:
+    #     friendly_name: "Bedroom AC Temp Up"
+    #     command_on: "JgDSAAABD4kSMxE1ETQREhE1ERIRNBE0EokSERESERIRNBESERIRExASFAACbgABFIgSNBE0ETUREhA1ERIRNRE0EYoREhATERIRNBESEhERExASEwACbgABE4oQNRI0ETQREhE1ERIRNBE0EYoREhESERISMxIRERMQEhIRFQACbQABEooRNRE0ETUQExE0EhERNRE0EYkREhETERIQNRETEBIQExATEwACbgABE4kRNRE0ETUREhE0ERIRNRA1EYoREhESEBQQNBESERIREhETEwANBQAAAAA="
+    #   bedroom_ac_temp_down:
+    #     friendly_name: "Bedroom AC Temp Down"
+    #     command_on: "JgCcAwABD4oRNBE1ETQRExA1ERIQNRI0EIoSNBATEBMQNRESERIREhESEwACcAABE4oRNBE1ETQREhA2EBMQNRE0EYoSNBATERIQNRESERISERESEwACcAABE4oRNBE1EDUREhE1EBMQNRIzEYoRNRATEBIRNRETEBMQEhESEwACcAABFIkRNBE1EDUREhE1EBMRNBE1EIoRNBETEBMQNRIREhEREhESEwACcAABE4oQNRE1EDUSEhA1ERIQNRIzEokRNRATERIQNRETEBMQEhESFAACbwABE4oRNBE1ETQSERE1EBMQNRE0EYoRNRASERIRNRISEBMQExATEgACcAABE4oQNRE1EDURExA1EBMQNRE0EYoRNBISEBMRNBESERMQExATEgACcQABFIgQNRE1EDUREhE0ERMQNRIzEYoRNBESERMQNRESERIRExASEwACcQABEooQNRE1EDUREhE0ERIRNRE0EYoRNBESERIRNRESERMQEhESEwACcAABE4oRNBI0EDUSERE1EBMQNRE0EYoRNBISERERNRESERIRExASEwACcQABEooQNRE1ETQREhE0EhIQNRE0EokRNBESEhIQNRESERIREhAUEAACcgABE4oQNRE1EDUREhE0ERMRNBE0EYoRNBETEBMQNRESEBQQExATEwACbwABE4oRNBIzETUREhE0ERMRNBE0EYoRNBESERIRNRATEBQQEw8UEwACbwABE4oQNRE1EDUREhE0ERIRNRE0EYoRNBIREhERNRESERIQExAUEwACbwABE4kSNBE0ETURExA0EhIQNRE0EokRNBETERESNBATEBMQExAUEgACcAABE4oQNRA1EjQREhE0EhERNRE0EYoRNBESERIRNRATERIQFA8UEgACcAABE4kRNRE0ETUREhE0EhIQNRE0EokRNBESERMQNRATEBMQFA8TFAACbwABE4kRNRE0ETUREhE0ERMQNRA1EYoRNBESEhERNRESERIQExATEwACcAABE4kRNRE0ETUREhE0EhERNRE0EYoRNBESERIRNRETEBIQExATEwACcAABFIgSNBIzETURExA0ERIRNRA1EokRNBESERMRNBATEBMQExATEwACcAABE4kRNRIzETUREhE0ERMRNBA1EYoQNRESERIRNRATEBMQExATEwACcAABE4kSNBE0ETUREw81ERMQNRA1EokRNBETEBMQNRATEBMQEhESFAANBQAAAAAAAAAAAAA="
+    #   bedroom_ac_mode_switch:
+    #     friendly_name: "Bedroom AC Mode Switch"
+    #     command_on: "JgD4AQABD4kSNBE0ETUREhE0ERIRNRA1EokRNBE1EBMQExATEBIRExASFAACdAABFIgSMxE1ETQREhE1ERIRNBE1EYoQNRE0ERIREhESERIREhIRFAACcQABE4oRNBE1EDUREhE0ERIRNRE0EYoSMxE1ERIREhESERIREhESEwACcgABE4kRNRE0ETUQExA1ERIRNBI0EogRNRE0EhEREhESERIREhESFAACcQABE4oRNBE1EDUSERE1EBMRNBE0EYoSMxE1EhEREhESERIREhIREwACcgABE4kRNRE0EjQREhE0ERIRNRE0EYoRNBE1ERIQExESERIQEhESFAACcQABE4oSMxI0ETQREhE1ERIRNBE1EIoSNBA1EhEREhESEhERExASEwACcgABE4oQNRE0EjQREhIzEhESNBIzEYoRNBE1EBMQExATERIQExESEwACcgABE4kSMxE1ETQSERE1EhERNBE1EYkSNBE0ERIREhETEBIREhESFAACcQABE4oRNBI0ETQREhIzERMQNRE0EYoRNBE1ERIREhESERIREw8TEwACcgABE4kTMxE0ETUQExA1ERIRNBE1EYkSNBE0EhEREhESERISERESFQACcAABE4oRNBE1ETQSERI0EBMRNBIzEokSNBA1ERMQEhESERIREhESEwANBQAAAAAAAAAAAAAAAAAA"
+  - platform: wake_on_lan
+    name: "computer"
+    mac: c8:5b:76:34:f0:ce
+    host: 192.168.1.252
+    turn_off:
+      service: script.pc_off   
+  - platform: wake_on_lan
+    name: "Lenovo"
+    mac: 00:23:24:bf:67:2e
+    host: 192.168.1.224
+    turn_off:
+      service: script.lenovo_off        
+# lutron_caseta_pro:
+#     bridges:
+#       - host: 192.168.15.19
+#         mac: 60:64:05:3F:FE:20
+##old influxdb##
+##influxdb:##
+#  host: a0d7b954-influxdb#
+#  port: 8086#
+#  database: homeassistant#
+#  username: homeassistant#
+#  password: Beatking1!zz#
+#  max_retries: 3#
+#  default_measurement: state#
+# Example configuration.yaml entry#####
+neato:
+  client_id: a75d0c264237e1f8c17484ba8d76d2e9d5bdabfb645a9a9e0773644059fd99e2
+  client_secret: 277ac7209aebc8670251184eb28599ed41ea696de653c63bf1df5d488dae6b97
+# Example configuration.yaml entry with manually specified addresses
+tplink:
+  discovery: false
+  strip:
+    - host: 192.168.15.6
+# This will have to be your mqtt broker, Mosquitto addon is recommended.
+input_boolean:
+  zigbee_permit_join:
+    name: Allow devices to join
+    initial: off
+    icon: mdi:cellphone-wireless
+timer:
+  zigbee_permit_join:
+    name: Time remaining
+    duration: 600 # Updated this to the number of seconds you wish
+# Example configuration.yaml entry with include
+#influxdb##
+influxdb:
+  api_version: 2
+  ssl: false
+  host: 192.168.1.230
+  port: 8086
+  token: pruK-KQgmbmDHBxgnh4Eg22lNMlFydmad2cTn_MI89CZMX5EPZHR2zNXg24pLgGZ_SagNaU0rC7Hex03jAHjag==
+  organization: 39f8a2a45d5a2f04
+  bucket: home_assistant
+  tags:
+    source: HA
+  tags_attributes:
+    - friendly_name
+  default_measurement: units
+  include:
+    domains:
+      - sensor
+##recorder##
+recorder:
+  include:
+    entities:
+      - sensor.oven_state
+joaoapps_join:
+  - name: Computer
+    device_id: 1b17ce0b036d4427b82e078eb68e7f0f
+    api_key: 98f8177d1952406683a20292f3d0002e
+  - name: Lenovo
+    device_id: ff08433526ba4cb8982be1e911363c7f
+    api_key: 98f8177d1952406683a20292f3d0002e
+
+ffmpeg:
+# Example configuration.yaml entry
+camera:
+  - platform: ffmpeg
+    input: FFMPEG_SUPPORTED_INPUT
+
+input_text:
+  alexa_actionable_notification:
+    name: Alexa Actionable Notification Holder
+    max: 255
+    initial: '{"text": "This is a test of the alexa actions custom skill. Did it work?", "event": "actionable.skill.test"}'
+
+# Example configuration.yaml entry
+#android_ip_webcam:
+#  - host: 192.168.1.253
+#    port: 8080
+#    sensors:
+#      - audio_connections
+#      - battery_level
+#      - battery_temp
+#      - battery_voltage
+#      - light
+#      - motion
+#      - pressure
+#      - proximity
+##      - sound
+ #     - video_connections
+ #   switches:
+ #     - exposure_lock
+ #     - ffc
+ #     - focus
+ #     - gps_active
+ #     - motion_detect
+ #     - night_vision
+ #     - overlay
+ #     - torch
+ #     - whitebalance_lock
+ #    - video_recording
+rest_command:
+  autoremote_garage_open:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=fLUogxx4S-I:APA91bHWn6HXH01Zrw9ZEXrz95lxsCsXcm56PiFg0ud6E6nZROSEWZlGpYclvj-FkI0dgpgulw9KNm3k3BsB2YlQPzb-K0sBb4YlJbRVguMfnj8lmIdbWazUrZePx3KVMpvqkgj4-A89&message=garage_open'
+  autoremote_open_nanit:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=fLUogxx4S-I:APA91bHWn6HXH01Zrw9ZEXrz95lxsCsXcm56PiFg0ud6E6nZROSEWZlGpYclvj-FkI0dgpgulw9KNm3k3BsB2YlQPzb-K0sBb4YlJbRVguMfnj8lmIdbWazUrZePx3KVMpvqkgj4-A89&message=open_nanit'
+  autoremote_close_nanit:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=fLUogxx4S-I:APA91bHWn6HXH01Zrw9ZEXrz95lxsCsXcm56PiFg0ud6E6nZROSEWZlGpYclvj-FkI0dgpgulw9KNm3k3BsB2YlQPzb-K0sBb4YlJbRVguMfnj8lmIdbWazUrZePx3KVMpvqkgj4-A89&message=close_nanit'
+  autoremote_kitchen_garage_open:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=cL50q_FlkWI:APA91bFOCkf0F_WEMZkezEgSnjkoOaAjbI1MGCGdIAfpymCLmly-lAh7KljyUqCvjea1gEKPjNQjDZsrKVVGyMOftUaIS_Cpuh9MJD9Z5DYhCfVBJE1DtM_G5MGavs0DSwhzHAvRO6Sv&message=garage_open'
+  autoremote_kitchen_open_nanit:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=cL50q_FlkWI:APA91bFOCkf0F_WEMZkezEgSnjkoOaAjbI1MGCGdIAfpymCLmly-lAh7KljyUqCvjea1gEKPjNQjDZsrKVVGyMOftUaIS_Cpuh9MJD9Z5DYhCfVBJE1DtM_G5MGavs0DSwhzHAvRO6Sv&message=kitchen_open_nanit'
+  autoremote_kitchen_close_nanit:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=cL50q_FlkWI:APA91bFOCkf0F_WEMZkezEgSnjkoOaAjbI1MGCGdIAfpymCLmly-lAh7KljyUqCvjea1gEKPjNQjDZsrKVVGyMOftUaIS_Cpuh9MJD9Z5DYhCfVBJE1DtM_G5MGavs0DSwhzHAvRO6Sv&message=kitchen_close_nanit'
+  autoremote_open_front_door:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=fLUogxx4S-I:APA91bHWn6HXH01Zrw9ZEXrz95lxsCsXcm56PiFg0ud6E6nZROSEWZlGpYclvj-FkI0dgpgulw9KNm3k3BsB2YlQPzb-K0sBb4YlJbRVguMfnj8lmIdbWazUrZePx3KVMpvqkgj4-A89&message=open_front_door'
+  autoremote_kitchen_open_front_door:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=cL50q_FlkWI:APA91bFOCkf0F_WEMZkezEgSnjkoOaAjbI1MGCGdIAfpymCLmly-lAh7KljyUqCvjea1gEKPjNQjDZsrKVVGyMOftUaIS_Cpuh9MJD9Z5DYhCfVBJE1DtM_G5MGavs0DSwhzHAvRO6Sv&message=kitchen_open_front_door'
+  autoremote_find_my_phone:
+    url: 'https://autoremotejoaomgcd.appspot.com/sendmessage?key=fELatr-lyvA:APA91bECFJSW9T9tCYR82vDIhzMBBxZkh5vxBzHvkoDdBfSUCClksVW72AWgRQEIgmkjEHr5gUFo1--I7Xj8pwo7vSVeFTsbfsULVwrmFiLA2dmkLqjWnK0PLYcT2jtzndJAVY0OkfXr&message=find_my_phone'
+twilio:
+  account_sid: AC7d05f27282720efd210fadf7859eca19
+  auth_token: aac198d14ab81a7e69599d24066c7176

@@ -1,0 +1,416 @@
+'1586050871309':
+  alias: I'm Awake
+  sequence:
+  - data: {}
+    entity_id: all
+    service: light.turn_on
+'1586096270425':
+  alias: Getting Ready For Bed
+  sequence:
+  - data: {}
+    entity_id:
+    - light.dining_room_chandelier
+    - light.dining_room_cove_lights
+    - light.dining_room_main_lights
+    - light.entryway_light
+    - light.kitchen_main_lights
+    - light.nursery_sconces
+    - light.0x0017880108197b79_light
+    service: light.turn_off
+  - data: {}
+    entity_id:
+    - switch.bedroom_1
+    - switch.bedroom_2
+    - switch.plug_4
+    - switch.plug_6
+    - switch.bedroom_ac_power
+    - switch.ac_power_test
+    service: switch.turn_on
+  - data: {}
+    entity_id: light.master_bedroom_ceiling_fan_light
+    service: light.turn_on
+  - data:
+      entity_id: media_player.bedroom_echo_dot
+      media_content_id: mozart
+      media_content_type: SPOTIFY
+    service: media_player.play_media
+sienna:
+  alias: Sienna
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.nursery_sconces
+      brightness: 102
+  - data:
+      entity_id: media_player.nursery
+      media_content_id: Elmo
+      media_content_type: SPOTIFY
+    service: media_player.play_media
+sienna_button:
+  alias: Sienna_Button
+  sequence:
+  - service: light.turn_off
+    data:
+      entity_id: light.nursery_sconces
+'1586176470577':
+  alias: Music Test
+  sequence:
+  - data:
+      entity_id: media_player.dining_room_echo
+      media_content_id: Lianne La Havas
+      media_content_type: SPOTIFY
+    service: media_player.play_media
+'1586187666880':
+  alias: Turn On Bathroom Lights
+  sequence:
+  - data: {}
+    entity_id: light.caseta_r_wireless_in_wall_dimmer_5,light.caseta_r_wireless_in_wall_dimmer_6
+    service: light.turn_on
+'1586187819894':
+  alias: Turn Off Bathroom Lights
+  sequence:
+  - data: {}
+    entity_id: light.caseta_r_wireless_in_wall_dimmer_5,light.caseta_r_wireless_in_wall_dimmer_6
+    service: light.turn_off
+'1586697999526':
+  alias: Sleep Time
+  sequence:
+  - data: {}
+    entity_id: light.master_bedroom_ceiling_fan_light
+    service: light.turn_off
+  - data: {}
+    entity_id: switch.bedroom_1,switch.bedroom_2
+    service: switch.turn_off
+  - delay: 00:00:30
+  - data: {}
+    entity_id: switch.bedroom_3
+    service: switch.turn_on
+  - data: {}
+    entity_id: media_player.bedroom_echo_dot
+    service: media_player.media_play_pause
+test_pushbullet:
+  alias: test_pushbullet
+  sequence:
+  - service: notify.pushbullet
+    data:
+      title: TEST ALERT!
+      message: This is a test message
+'1586804507325':
+  alias: Notification Test
+  sequence:
+  - data:
+      message: this is a test
+    service: notify.alexa_media
+'1587384912371':
+  alias: Morning Borning
+  sequence:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.ac_power_test
+  - service: switch.turn_on
+    data:
+      entity_id: switch.bedroom_ac_power
+  - service: switch.turn_off
+    data:
+      entity_id: switch.bedroom_3
+  - delay: 00:00:01
+  - service: light.turn_on
+    data:
+      entity_id: light.dining_room_chandelier
+      brightness: 160
+  - delay: 00:00:01
+  - service: light.turn_on
+    data:
+      entity_id: light.dining_room_cove_lights
+      brightness: 23
+  - delay: 00:00:01
+  - service: light.turn_on
+    data:
+      entity_id: light.dining_room_main_lights
+      brightness: 30
+  - delay: 00:00:01
+  - service: light.turn_on
+    data:
+      entity_id: light.master_bedroom_ceiling_fan_light
+      brightness: 50
+  - delay: 00:00:01
+  - service: light.turn_on
+    data:
+      entity_id: light.bathroom_lights
+      brightness: 255
+  - service: light.turn_on
+    data:
+      entity_id: light.kitchen_main_lights
+      brightness: 120
+  - service: light.turn_on
+    data:
+      entity_id: light.hallway_main_lights
+      brightness: 9
+  - service: light.turn_on
+    data:
+      entity_id: light.entryway_light
+  - service: wake_on_lan.send_magic_packet
+    data:
+      mac: a8:23:fe:e5:45:55
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.living_room_denon
+      source: AUX
+  - delay: 0:00:10
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.living_room_denon
+      source: AUX
+  - delay: 0:00:10
+test_the_lights:
+  alias: Test the lights
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.master_bedroom_ceiling_fan_light
+      brightness: 30
+test_the_media:
+  alias: test the media
+  sequence:
+  - service: media_player.turn_on
+    data:
+      entity_id: media_player.living_room_tv
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.living_room_denon
+      source: AUX
+  - delay: 0:00:10
+test_the_media2:
+  alias: test the media2
+  sequence:
+  - service: wake_on_lan.send_magic_packet
+    data:
+      mac: a8:23:fe:e5:45:55
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.living_room_denon
+      source: AUX
+  - delay: 0:00:10
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.living_room_denon
+      source: AUX
+  - delay: 0:00:10
+slow_light_test:
+  alias: slow_light_test
+  sequence:
+  - service: light.turn_off
+    data:
+      entity_id: light.kitchen_main_lights
+      transition: 300
+activate_alexa_actionable_notification:
+  description: 'Activates an actionable notification on a specific echo device'
+  fields:
+    text:
+      description: 'The text you would like alexa to speak.'
+      example: 'What would you like the thermostat set to?'
+    event_id:
+      description: 'Correlation ID for event responses'
+      example: 'ask_for_temperature'
+    alexa_device: 
+      description: 'Alexa device you want to trigger'
+      example: 'media_player.dining_room_echo'
+  sequence:
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.alexa_actionable_notification
+        value: '{"text": "{{ text }}", "event": "{{ event_id }}"}'
+    - service: media_player.play_media
+      data_template:
+        entity_id: "{{ alexa_device }}"
+        media_content_type: skill
+        media_content_id: 'amzn1.ask.skill.a71d6d42-7994-4a1a-91a3-bad37c4a7b5b'
+dining_room_ac_test:
+  alias: dining_room_ac_test
+  sequence:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.ac_power_test
+pc_off:
+  alias: PC - Off
+  sequence:
+    service: joaoapps_join.computer_send_tasker
+    data:
+      device_id: Join_PC_id
+      command: shutdown
+pc_lock:
+  alias: PC - Lock
+  sequence:
+    service: joaoapps_join.computer_send_tasker
+    data:
+      device_id: Join_PC_id
+      command: lock
+pc_sleep:
+  alias: PC - Sleep
+  sequence:
+    service: joaoapps_join.computer_send_tasker
+    data:
+      device_id: Join_PC_id
+      command: sleep
+lenovo_off:
+  alias: Lenovo - Off
+  sequence:
+    service: joaoapps_join.lenovo_send_tasker
+    data:
+      device_id: Join_PC_id
+      command: shutdown
+lenovo_lock:
+  alias: Lenovo - Lock
+  sequence:
+    service: joaoapps_join.lenovo_send_tasker
+    data:
+      device_id: Join_PC_id
+      command: lock
+lenovo_sleep:
+  alias: Lenovo - Sleep
+  sequence:
+    service: joaoapps_join.lenovo_send_tasker
+    data:
+      device_id: Join_PC_id
+      command: sleep
+announce_humidity:
+  alias: 'announce humidity'
+  sequence:
+    - service: notify.alexa_media
+      data:
+        target: "{{ states.sensor.last_alexa.state }}"
+        data:
+          type: tts
+        message: "The nursery humidity is {{states('sensor.nursery_humidity')}} "
+announce_mail_arrival:
+  alias: 'announce mail arrival'
+  sequence:
+    - service: notify.alexa_media
+      data:
+        target: "{{ states.sensor.last_alexa.state }}"
+        data:
+          type: tts
+        message: 'The mail has {% if is_state("input_boolean.motion_detected",
+        "on") -%} arrived. {%- else -%} not arrived. {%- endif %}'
+announce_dirty_dishes:
+  alias: 'announce dirty dishes'
+  sequence:
+    - service: notify.alexa_media
+      data:
+        target: "{{ states.sensor.last_alexa.state }}"
+        data:
+          type: tts
+        message: 'The dishes are {% if is_state("input_boolean.dishwasher_fiean",
+        "on") -%} clean. {%- else -%} dirty. {%- endif %}'
+lock_check:
+  alias: 'Lock Check'
+  sequence:
+    choose:
+      - conditions:
+          condition: and
+          conditions:
+            - condition: state
+              entity_id: binary_sensor.wyzesense_779c36ac
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.wyzesense_779c3677
+              state: 'off'
+        sequence:
+          - service: notify.alexa_media
+            data:
+              target: "{{ states.sensor.last_alexa.state }}"
+              data:
+                type: announce
+                method: all
+              message: "The Bedroom Door Is Locked and the Mailbox is Closed"
+      - conditions:
+          condition: and
+          conditions:
+            - condition: state
+              entity_id: binary_sensor.wyzesense_779c36ac
+              state: 'on'
+            - condition: state
+              entity_id: binary_sensor.wyzesense_779c3677
+              state: 'off'
+        sequence:
+          - service: notify.alexa_media
+            data:
+              target: "{{ states.sensor.last_alexa.state }}"
+              data:
+                type: announce
+                method: all
+              message: "The Bedroom Door is Unlocked"
+      - conditions:
+          condition: and
+          conditions:
+            - condition: state
+              entity_id: binary_sensor.wyzesense_779c36ac
+              state: 'off'
+            - condition: state
+              entity_id: binary_sensor.wyzesense_779c3677
+              state: 'on'
+        sequence:
+          - service: notify.alexa_media
+            data:
+              target: "{{ states.sensor.last_alexa.state }}"
+              data:
+                type: announce
+                method: all
+              message: "The Mailbox is Unlocked"
+    default:
+        - service: notify.alexa_media
+          data:
+            target: "{{ states.sensor.last_alexa.state }}"
+            data:
+              type: announce
+              method: all
+            message: "The front door is unlocked, and the mailbox is open"
+frieda:
+  alias: Frieda
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.dining_room_main_lights
+      brightness: 8
+nanit_on:
+  sequence:
+    - service: rest_command.autoremote_open_nanit
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.nanit_state
+nanit_off:
+  sequence:
+    - service: rest_command.autoremote_close_nanit
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.nanit_state
+kitchen_nanit_on:
+  sequence:
+    - service: rest_command.autoremote_kitchen_open_nanit
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.kitchen_nanit_state
+kitchen_nanit_off:
+  sequence:
+    - service: rest_command.autoremote_kitchen_close_nanit
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.kitchen_nanit_state
+door_on:
+  sequence:
+    - service: rest_command.autoremote_open_front_door
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.door_state
+kitchen_door_on:
+  sequence:
+    - service: rest_command.autoremote_kitchen_open_front_door
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.kitchen_door_state
+find_my_phone:
+  sequence:
+    - service: rest_command.autoremote_find_my_phone
+
+power:
+  sequence:
+    - service: remote.send_command
+      target:
+        entity_id: remote.broadlink_br_remote
+      data:
+        device: bedroom_ac
+        command: power

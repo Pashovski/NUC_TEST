@@ -85,33 +85,34 @@ services:
     volumes:
       - /home/pashovski/docker-compose/data/mysql:/var/lib/var/lib/mysql
 ###ngninx#########
-  nginx:
-    image: nginx
-    volumes:
-      - ./config:/etc/nginx/conf.d
-    ports:
-      - 99:80
-    networks:
-      - local-network
-  ###apache###
-  apache:
-    container_name: public-website
-    image: httpd:latest
-    cpus: 1.5
-    mem_limit: 2048m
-    ports:
-      - '82:80'
-    volumes:
-      - ./shell-element/dist:/usr/local/apache2/htdocs
-  ####Fast API###
+  # nginx:
+  #   image: nginx
+  #   volumes:
+  #     - ./config:/etc/nginx/conf.d
+  #   ports:
+  #     - 99:80
+  #   networks:
+  #     - local-network
+###apache###
+  # apache:
+  #   container_name: public-website
+  #   image: httpd:latest
+  #   cpus: 1.5
+  #   mem_limit: 2048m
+  #   ports:
+  #     - "82:80"
+  #   volumes:
+  #   - ./shell-element/dist:/usr/local/apache2/htdocs
+####new thing###
   web:
     build: ./app
     ports:
-      - '8000:8000'
+      - "8000:8000"
     environment:
       - PORT=8000
 
-  #####ubooquity####
+
+#####ubooquity####
   ubooquity:
     container_name: ubooquity
     restart: always

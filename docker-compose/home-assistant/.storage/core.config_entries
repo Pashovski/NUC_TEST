@@ -1,0 +1,384 @@
+{
+    "version": 1,
+    "minor_version": 1,
+    "key": "core.config_entries",
+    "data": {
+        "entries": [
+            {
+                "entry_id": "2e6c29e7ed4ee6b98cf6e77a3c4bd642",
+                "version": 1,
+                "domain": "met",
+                "title": "Home",
+                "data": {
+                    "track_home": true
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "onboarding",
+                "unique_id": null,
+                "disabled_by": null
+            },
+            {
+                "entry_id": "e806f677dcc9d421bdd310ac5c4049a9",
+                "version": 1,
+                "domain": "hacs",
+                "title": "",
+                "data": {
+                    "token": "d90a3ecfdad0ead8c41b4e6777c59248a8b81187"
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "user",
+                "unique_id": null,
+                "disabled_by": null
+            },
+            {
+                "entry_id": "450944027fa4ad10004b1774f8446e08",
+                "version": 1,
+                "domain": "speedtestdotnet",
+                "title": "SpeedTest",
+                "data": {},
+                "options": {
+                    "scan_interval": 60,
+                    "manual": false,
+                    "server_id": "16976"
+                },
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "import",
+                "unique_id": null,
+                "disabled_by": null
+            },
+            {
+                "entry_id": "5888c34361b07a54e001efd8186b44df",
+                "version": 1,
+                "domain": "mqtt",
+                "title": "192.168.1.230",
+                "data": {
+                    "broker": "192.168.1.230",
+                    "port": 1883,
+                    "username": "diymqtt",
+                    "password": "mqttdiy",
+                    "birth_message": {
+                        "topic": "homeassistant/status",
+                        "payload": "online",
+                        "qos": 0,
+                        "retain": false
+                    },
+                    "will_message": {
+                        "topic": "homeassistant/status",
+                        "payload": "offline",
+                        "qos": 0,
+                        "retain": false
+                    },
+                    "discovery": true
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "user",
+                "unique_id": null,
+                "disabled_by": null
+            },
+            {
+                "entry_id": "4662682e4dc522c80a0ba352e8e7b1eb",
+                "version": 1,
+                "domain": "alexa_media",
+                "title": "pashdoctor@mac.com - amazon.com",
+                "data": {
+                    "email": "pashdoctor@mac.com",
+                    "password": "Beatking1!zz123456",
+                    "url": "amazon.com",
+                    "debug": false,
+                    "scan_interval": 60,
+                    "include_devices": "",
+                    "exclude_devices": "",
+                    "proxy": false,
+                    "oauth_login": true,
+                    "oauth": {
+                        "access_token": "Atna|EwICIBafXwvBiLYKEZumSmCvpImlwzvrztd9mKObh5ok-d7S2Hp0OENTmzQkESnKLMM-wT0Ny-SVuzC2mtWCtX1Dhck7zLg_SHWC0SOEa1G80rHxEUp3IA3GIceZEYtQTPJO4LFvfSheDgKPAngB8S6jCy1XKIdcplojvW3jSawLHmA_QoImgl2J8bEgWqduhjzVBMOnalPn7Q8jVFBB-7M7TSI6DxpCgZhM3J2kec2w4g5ghhfVjIqE1z-DJy5M4QGYM1pwSDSvddagkUW380gckuBSLBTio3OylTAGsGjf9pMC9wYMx7Hm7rAs_fG-1jv2hhJBw9Gv5LoIEnMFfYVpZc1S5lgJ0geSluhmId0CBR7CkQ",
+                        "refresh_token": "Atnr|EwICICLIeLwx0GjmP5zsdb6RUBpIH3UEspZY5kfYNvdiIOBC-78EgyFc4Anh37D7w-KrV55u-9tIdQS5cFKQbBD2lnEF1HZpYHhG4jbtPKE20s6vtssEOE_2reGGJrmylTreRCL_7_i3veK1IAwjylRKHQOXxlQOlMMzZ8u7Hng7qNFOGRaplRTc6UYR-Y2JcrgPmOOQHrIXiXtF6ZU7tP5kD8vwfGZz6ly3bPws-OpmzwK0Acnl8eVIq8uZyQgaFZNOJS-_DqUMcWcfJztQwznJNQjC0jnJ4H8pQkKeLp2TBcSZn1vZ3xxkcaJgwVkulZ0vMV6kNZGTJzscE-Nrgi4IYdZcMAQi2gndfC4tp7f4ZZFrXA",
+                        "expires_in": 1673728772.584688
+                    }
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "user",
+                "unique_id": "pashdoctor@mac.com - amazon.com",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "bc79d7082c7a647bc4b241af03f61877",
+                "version": 1,
+                "domain": "mobile_app",
+                "title": "SM-G965U1",
+                "data": {
+                    "app_id": "io.homeassistant.companion.android",
+                    "app_name": "Home Assistant",
+                    "app_version": "2022.12.0-full (3026)",
+                    "device_name": "SM-G965U1",
+                    "manufacturer": "samsung",
+                    "model": "SM-G965U1",
+                    "os_name": "Android",
+                    "os_version": "29",
+                    "supports_encryption": false,
+                    "app_data": {
+                        "push_websocket_channel": true,
+                        "push_url": "https://mobile-apps.home-assistant.io/api/sendPush/android/v1",
+                        "push_token": "es6wIQ4icXE:APA91bEO1yJKfwxa7DvbdKA_JM-cu-dWIgHPpbbRitQGNMMK6hcsIoImmv9JFzZW3xE2JODhcLdyjzVo8nYTzc1SKnTAJnf_iFwCU38o8eQbqjwWpsJ366OE6eKBcg_l3V4fZdZ4pCRA"
+                    },
+                    "device_id": "059e25b98ffe7038",
+                    "cloudhook_url": "https://hooks.nabu.casa/gAAAAABgbHDnFZsRMJ2bNS_F9xHNxM7jiKIsIIFiJM0UCYYneqEJD0uCtI9iQnVlefZqFJa7tZnvkIemTEwLZXJAPBWMu2n6WSUx_Lxy73QRzkJVhf-JnTnqLu6TasvM-ZhQbvDMcSna7cm40aDcLUsw0-e2hXa3InwJ1CphWlKN0QsKmXpYdak=",
+                    "webhook_id": "f8ff8e4715817e03d6eb53e8022ed7894a26f214d753fde44d14d4f2b03016b7",
+                    "user_id": "cc9b8364a74d46e5a0bb2d4dfe4b0535"
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "registration",
+                "unique_id": "io.homeassistant.companion.android-059e25b98ffe7038",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "6f4d9ac45088c0ca1e753e48fe25d60e",
+                "version": 1,
+                "domain": "spotify",
+                "title": "caitlinmin",
+                "data": {
+                    "auth_implementation": "spotify",
+                    "token": {
+                        "access_token": "BQBfQkE5ZJip_I_tOVRdSyo5fXtEiVDp_TFl2WC_dx7CQUaDxcrH5-mR4isUFChO2ESEflkuHRkplLfWJ6Xq_YKA3Kiuccbt6fu5VKiQvfNAol7IIo7Hp1VwVImnrAPSap7wbn8O3Dcx0O1FN2VqBRXAnbl8Rwv33eMjLSLZCA-jdKdsqpV4IWQlLteJLICvMixHYPLXacmAaNlEctBn3qtRz3ckc6ThbLqdT1qY4GtUBw",
+                        "token_type": "Bearer",
+                        "expires_in": 3600,
+                        "refresh_token": "AQC5tVF-ubi8PQqRKfFooPMLbVMFwE3GUk6Ut5D6HbIzo36tYZ7jxnCtcXBLbXW96ULoYX8g5voS9URzEsT_Awo4VgmuaORH0TsPXpO9_03JwuMhU9o_hHiOiWIRojtRpgM",
+                        "scope": "playlist-read-private playlist-read-collaborative user-modify-playback-state user-library-read user-follow-read user-read-playback-state user-read-recently-played user-read-playback-position user-read-private user-top-read",
+                        "expires_at": 1673728512.3677979
+                    },
+                    "id": "caitlinmin",
+                    "name": "caitlinmin"
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "user",
+                "unique_id": "caitlinmin",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "25a36db6d92cb63a957c73fccc085e8d",
+                "version": 1,
+                "domain": "broadlink",
+                "title": "Broadlink_Main",
+                "data": {
+                    "host": "192.168.15.22",
+                    "mac": "24dfa7e00248",
+                    "type": 24374,
+                    "timeout": 5
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "import",
+                "unique_id": "24dfa7e00248",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "7c51b0eab845d88e2566491d2c925d59",
+                "version": 1,
+                "domain": "broadlink",
+                "title": "Broadlink_BR",
+                "data": {
+                    "host": "192.168.15.24",
+                    "mac": "24dfa7e01a48",
+                    "type": 24374,
+                    "timeout": 10
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "dhcp",
+                "unique_id": "24dfa7e01a48",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "08b46604cd66af61139bf4075cfbdaa1",
+                "version": 1,
+                "domain": "mobile_app",
+                "title": "kitchen_tablet",
+                "data": {
+                    "app_id": "io.homeassistant.companion.android",
+                    "app_name": "Home Assistant",
+                    "app_version": "2022.6.0-full (2398)",
+                    "device_name": "kitchen_tablet",
+                    "manufacturer": "samsung",
+                    "model": "SM-T580",
+                    "os_name": "Android",
+                    "os_version": "24",
+                    "supports_encryption": false,
+                    "app_data": {
+                        "push_websocket_channel": true,
+                        "push_url": "https://mobile-apps.home-assistant.io/api/sendPush/android/v1",
+                        "push_token": "cpm7ecZCT7KM6PEe3V0M4d:APA91bHpsMXDUpMNkXxLjOX3vcBVS6VIKncdG3YgGzJHsbmByGJF220AKkuNXKYRlsEMG2uX9qJyZxUeLay6wTJMsDABQdmM8EYOl3yxTFhblbh4BthIDvZdYfAFUQPFa7FxDRYQ0_v-"
+                    },
+                    "device_id": "66ea766070ddcbf8",
+                    "cloudhook_url": "https://hooks.nabu.casa/gAAAAABgzkyZ2sOeAfBXw5yaPCUEv7vKKlMv-MZ-n-cWPHVyvpcBEcf2BzUs7s93dMnJ963sS_5zKlTf46QalNnng2ywanABPMktWgo_M5WIku_x05ddfVVlYnBYAYTFCo00cufM44Rx01odHMX6410X7lV2-OwiST2qXKdMXt8EYBTiPWDzNmo=",
+                    "webhook_id": "93c3d7042bba0e0f3ec7e4006fe1e7b57e6ad99a054ca87ea32f83829849b2c9",
+                    "user_id": "cc9b8364a74d46e5a0bb2d4dfe4b0535"
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "registration",
+                "unique_id": "io.homeassistant.companion.android-66ea766070ddcbf8",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "8bea6b273e1980d4d1b56fee24c38bad",
+                "version": 1,
+                "domain": "mobile_app",
+                "title": "SM-G973U",
+                "data": {
+                    "app_id": "io.homeassistant.companion.android",
+                    "app_name": "Home Assistant",
+                    "app_version": "2022.3.0-full (2164)",
+                    "device_name": "SM-G973U",
+                    "manufacturer": "samsung",
+                    "model": "SM-G973U",
+                    "os_name": "Android",
+                    "os_version": "31",
+                    "supports_encryption": false,
+                    "app_data": {
+                        "push_websocket_channel": true,
+                        "push_url": "https://mobile-apps.home-assistant.io/api/sendPush/android/v1",
+                        "push_token": "fbhq6BIbSJeBuJa5ObNLVM:APA91bHkPdPkaLzDBHP0IfGH_NwEBIHp5xnWBQmCqo47zJs4VpG0QUq3KBWwDynci97nOBRRdyqmvsIcVL72BuN-UurIHyoBqx0hW2YIXluQq9GvwKb1Yp_YqwGL2BNlWmjOkZjUI3yM"
+                    },
+                    "device_id": "80dc9f79f9ce5718",
+                    "cloudhook_url": "https://hooks.nabu.casa/gAAAAABg38joySCx--PEnSwmWsH3DIsohgNeGmnUZbfmrUt3RrgJR1ycgI0jpXHJenjcd291VkFLLLSDjL-wmqdA-rqWVgZdH2ma-HYPDpANNiGQL-6RVfdBOGZrxkteng25wWkx259Dx4rxG5eD2Sn9Nws0kAxczIOFO_8sByxHDboGE-n40vw=",
+                    "webhook_id": "b1bc09697f23d5fc1a3adff7bbd1f158928ef4ec2250538fad55df54f749d360",
+                    "user_id": "cc9b8364a74d46e5a0bb2d4dfe4b0535"
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "registration",
+                "unique_id": "io.homeassistant.companion.android-80dc9f79f9ce5718",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "633d8d21d308284b998b5136f37c8e2c",
+                "version": 1,
+                "domain": "broadlink",
+                "title": "Broadlink_Pro",
+                "data": {
+                    "host": "192.168.15.36",
+                    "mac": "a043b0b9eaff",
+                    "type": 25755,
+                    "timeout": 5
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "user",
+                "unique_id": "a043b0b9eaff",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "7671337b24020da6d6633a099fc6a397",
+                "version": 1,
+                "domain": "denonavr",
+                "title": "Denon AVR-X1500H",
+                "data": {
+                    "host": "192.168.15.9",
+                    "type": "avr-x-2016",
+                    "model": "Denon AVR-X1500H",
+                    "manufacturer": "Denon",
+                    "serial_number": "AYW27180913910"
+                },
+                "options": {
+                    "show_all_sources": true,
+                    "zone2": false,
+                    "zone3": false,
+                    "update_audyssey": false
+                },
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "user",
+                "unique_id": "Denon AVR-X1500H-AYW27180913910",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "8a3c97086bcc5590819010ce8d46a241",
+                "version": 1,
+                "domain": "switchbot",
+                "title": "Switchbot",
+                "data": {
+                    "name": "Switchbot",
+                    "password": null,
+                    "mac": "c9:63:93:c1:e3:d3",
+                    "sensor_type": "bot"
+                },
+                "options": {
+                    "update_time": 60,
+                    "retry_count": 3,
+                    "retry_timeout": 5,
+                    "scan_timeout": 5
+                },
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "import",
+                "unique_id": "c96393c1e3d3",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "254e59e7423ee8f28880fd00576244a9",
+                "version": 1,
+                "domain": "tplink",
+                "title": "Plug 6",
+                "data": {
+                    "host": "192.168.15.6"
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "migration",
+                "unique_id": "98:da:c4:f1:01:89",
+                "disabled_by": null
+            },
+            {
+                "entry_id": "59e112e7ef7dba94cdd1d3c710728697",
+                "version": 1,
+                "domain": "mobile_app",
+                "title": "SM-S901U",
+                "data": {
+                    "app_id": "io.homeassistant.companion.android",
+                    "app_name": "Home Assistant",
+                    "app_version": "2022.12.0-full (3026)",
+                    "device_name": "SM-S901U",
+                    "manufacturer": "samsung",
+                    "model": "SM-S901U",
+                    "os_name": "Android",
+                    "os_version": "33",
+                    "supports_encryption": false,
+                    "app_data": {
+                        "push_websocket_channel": true,
+                        "push_url": "https://mobile-apps.home-assistant.io/api/sendPush/android/v1",
+                        "push_token": "dMHbrHtxRBaB3UHeO7lrcs:APA91bFyJGM9XmPmUuemrtzVL3uswLuKYGM_yFKnOAMBdBveBQA__MnqbS8tpJIXJZpIOfRbkl7Ax2TKa8HawoDfevX4AAbaDfmnO8DlBbs8WTVspoUgQSZljbr0dxteHdDXM6mAVoUm"
+                    },
+                    "device_id": "19337bc9d53cdff4",
+                    "cloudhook_url": "https://hooks.nabu.casa/gAAAAABjNzg3J9K2syhpjjvGJtXwYe80DZn_AV7znGhL7sLFowqLUJ71vy6lpnJr1COuAU5RCh85hjSuHrCZG__zIWjGNJkQ5xHQ5_WKDyLGWwPpSPb4uq33B7fNUvxgkz2G5feTOj-wJ0dXOob51kmMhC3nZ9aEWONysVBMu00ofSkwlCkQFLY=",
+                    "webhook_id": "4223ded5b379c11f8818dda50bab2327a7afa7f4cbac32e4d797c02ce9464419",
+                    "user_id": "cc9b8364a74d46e5a0bb2d4dfe4b0535"
+                },
+                "options": {},
+                "pref_disable_new_entities": false,
+                "pref_disable_polling": false,
+                "source": "registration",
+                "unique_id": "io.homeassistant.companion.android-19337bc9d53cdff4",
+                "disabled_by": null
+            }
+        ]
+    }
+}
