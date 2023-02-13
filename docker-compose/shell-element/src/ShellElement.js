@@ -1,4 +1,8 @@
 import { LitElement, html, css } from 'lit';
+import { customStyles } from './styles/custom';
+
+// const host = `192.168.1.230`;
+const host = `localhost`;
 
 const logo = new URL(
   '../assets/washing-machine-svgrepo-com.svg',
@@ -13,73 +17,61 @@ export class ShellElement extends LitElement {
       title: { type: String },
       washerStatus: { type: String },
       showImage: { type: Boolean },
+      doneMessage: { type: String },
     };
   }
 
-  static get styles() {
-    return css`
+  static styles = [
+    css`
       :host {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         font-size: calc(10px + 2vmin);
         color: #1a2b42;
-        max-width: 960px;
+        max-width: 100vw;
         margin: 0 auto;
         text-align: center;
-        background-color: #f9efea; /*change the background color*/
+        font-family: sans-serif;
       }
-      body {
-        background-color: edede9;
-      }
-
       main {
         flex-grow: 1;
-        padding: 30px; /*add some padding */
+        padding: 30px; /* add some padding */
       }
-
-      .logo {
-        margin-top: 36px;
-        animation: app-logo-spin infinite 20s linear;
+      #myVideo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
       }
-
-      @keyframes app-logo-spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      h1 {
-        font-size: 2.5em; /*increase the font size of the title */
-        color: #9b8b7a; /*change the title color */
-        text-transform: uppercase; /*change the title to uppercase */
-        letter-spacing: 2px; /*add spacing between letters */
-      }
-
-      h2 {
-        font-size: 1.5em; /*increase the font size of the status */
-        color: #f5a623; /*change the status color to a softer orange */
-        text-transform: capitalize; /*change the status to title case */
-        margin-top: 20px; /*add some margin to the status */
-      }
-    `;
-  }
+    `,
+    customStyles,
+  ];
 
   constructor() {
     super();
     this.title = '221 Laundry';
     this.showImage = false;
+    this.doneMessage = '';
+    this.washerStatus = 'Washing';
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('washerStatus')) {
+      this.shadowRoot.querySelector('video').load();
+    }
   }
 
   connectedCallback() {
     super.connectedCallback();
-    let ws = new WebSocket('ws://192.168.1.230:8000/ws/123');
-    // let ws = new WebSocket("ws://localhost:8000/ws/123");
+    let ws = new WebSocket(`ws://${host}:8000/ws/123`);
 
     ws.onopen = () => {
       ws.send('Hello, server!');
@@ -92,14 +84,18 @@ export class ShellElement extends LitElement {
       } else {
         data = JSON.parse(event.data)[0]['_value'];
       }
+      if (data === 'Idle') {
+        this.doneMessage = 'Load is finished';
+      } else {
+        this.doneMessage = 'Load is running';
+      }
       this.washerStatus = data;
       this.showImage = !this.showImage;
     };
 
     let reconnect = () => {
       setTimeout(() => {
-        ws = new WebSocket('ws://192.168.1.230:8000/ws/123');
-        // ws = new WebSocket("ws://localhost:8000/ws/123");
+        ws = new WebSocket(`ws://${host}:8000/ws/123`);
       }, 5000);
     };
     function capitalize(word) {
@@ -113,17 +109,15 @@ export class ShellElement extends LitElement {
 
   render() {
     return html`
+      <video autoplay muted loop id="myVideo">
+        <source src="../assets/${this.washerStatus}.mp4" type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
+
       <main>
-        ${
-          this.showImage
-            ? html`<div><img alt="Dry Image" src=${dryImg} /></div>`
-            : html`<div class="logo">
-                <img alt="Washing machine Icon" src=${logo} />
-              </div>`
-        }
-        </div>
-        <h1>${this.title}</h1>
+        <h1 class="title">${this.title}</h1>
         <h2>${this.washerStatus}</h2>
+        <h3>${this.doneMessage}</h3>
       </main>
     `;
   }
